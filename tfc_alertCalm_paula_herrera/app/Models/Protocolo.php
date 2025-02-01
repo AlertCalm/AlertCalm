@@ -18,4 +18,6 @@ class Protocolo extends Model
     {
         return $this->belongsTo(Alerta::class, 'alert_id');
     }
+
+   
 }
