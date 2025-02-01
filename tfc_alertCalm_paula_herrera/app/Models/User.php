@@ -18,11 +18,46 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'localizacion',
+        'edad',
+        'preferencias',
+        'lenguaje'
     ];
 
+    // Una usuario va a tener un notificacion
+    public function protocolo()
+    {
+        return $this->hasOne(Notificacion::class, 'user_id');
+    }
+
+    // Una user tiene varias notificaciones
+    public function notificacion()
+    {
+        return $this->hasMany(Notificacion::class, 'user_id');
+    }
+
+     // Un user tiene muchas favs
+     public function favorito()
+     {
+         return $this->hasMany(Favorito::class, 'user_id');
+     }
+
+      // Un user puede tener varias sesiones
+     public function sesiones()
+     {
+         return $this->hasMany(Sesion::class);
+     }
+
+    //  un usuario solo puede tener 1 suscripcion
+     public function premium()
+    {
+        return $this->hasOne(Premium::class);
+    }
+
+    
     /**
      * The attributes that should be hidden for serialization.
      *
