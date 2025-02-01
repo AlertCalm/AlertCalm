@@ -1,21 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Función que devuelve todos los usuarios
      */
     public function index()
     {
-        //
+        $usuarios=User::all();
+        if($usuarios->isEmpty()){
+            return response()->json([
+                'error'=>'No se han encontrado usuarios.'], 404);
+        }else{
+            return response()->json([
+                'success' => 'Usuarios encontrados',
+                'data' => $usuarios], 200);
+        }
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Crear un nuevo user
      */
     public function create()
     {
@@ -39,7 +48,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Editar usuario
      */
     public function edit(string $id)
     {
@@ -55,10 +64,22 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Función que elimina un usuario, pasandole su id por parámetros
      */
     public function destroy(string $id)
     {
-        //
+        $userEliminado=User::find($id);
+
+        if($userEliminado){
+            $userEliminado->delete();
+            return response()->json([
+                'success'=>'Usuaro eliminado',
+                 'data'=>$userEliminado], 200);
+        }else{
+            $usuarios=User::All();
+            return response()->json([
+                'error'=>'Usario no encontrado',
+                'usuarios'=>$usuarios], 404);
+        }
     }
 }

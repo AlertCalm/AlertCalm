@@ -15,26 +15,26 @@ use App\Http\Controllers\UserController;
 
 // RUTAS (el apiResource las genera automáticamente en CRUD)
 
-Route::apiResource('/alertas', AlertasController::class);
+Route::apiResource('/alertas', AlertaController::class);
 
-Route::apiResource('/almacen', AlertasController::class);
+Route::apiResource('/almacen', AlmacenController::class);
 
-Route::apiResource('/categorias', AlertasController::class);
+Route::apiResource('/categorias', CategoriaController::class);
 
-Route::apiResource('/favoritos', AlertasController::class);
+Route::apiResource('/favoritos', FavoritoController::class);
 
-Route::apiResource('/meditaciones', AlertasController::class);
+Route::apiResource('/meditaciones', MeditationController::class);
 
-Route::apiResource('/musica', AlertasController::class);
+Route::apiResource('/musica', MusicController::class);
 
-Route::apiResource('/notificaciones', AlertasController::class);
+Route::apiResource('/notificaciones', NotificacionController::class);
 
-Route::apiResource('/premium', AlertasController::class);
+Route::apiResource('/premium', PremiumController::class);
 
-Route::apiResource('/protocolos', AlertasController::class);
+Route::apiResource('/protocolos', ProtocoloController::class);
 
-Route::apiResource('/sesiones', AlertasController::class);
+Route::apiResource('/sesiones', SesionController::class);
 
-Route::apiResource('/users', AlertasController::class);
+Route::apiResource('/users', UserController::class);
 
 ?>
