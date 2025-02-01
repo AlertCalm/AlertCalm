@@ -27,6 +27,8 @@ class User extends Authenticatable
         'lenguaje'
     ];
 
+    
+
     // Una usuario va a tener un notificacion
     public function protocolo()
     {
