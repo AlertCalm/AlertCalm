@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Premium;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PremiumController extends Controller
@@ -37,18 +38,26 @@ class PremiumController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'user_id' => 'required|exists:users,id',
+        $validardatos = $request->validate([
+            'user_id' => 'required|int',
             'activo' => 'required|boolean',
             'fecha_inicio' => 'required|date',
             'fecha_expiracion' => 'nullable|date'
         ]);
 
+        // Verificar si el user_id existe en la base de datos
+        $user = User::find($validardatos['user_id']);
+        if (!$user) {
+            return response()->json([
+                'error' => 'El user_id proporcionado no existe en nuestra base de datos.'
+            ], 404);
+        }
+
         $premium = new Premium();
-        $premium->user_id = $validatedData['user_id'];
-        $premium->activo = $validatedData['activo'];
-        $premium->fecha_inicio = $validatedData['fecha_inicio'];
-        $premium->fecha_expiracion = $validatedData['fecha_expiracion'] ?? null;
+        $premium->user_id = $validardatos['user_id'];
+        $premium->activo = $validardatos['activo'];
+        $premium->fecha_inicio = $validardatos['fecha_inicio'];
+        $premium->fecha_expiracion = $validardatos['fecha_expiracion'] ?? null;
 
         $guardado = $premium->save();
 
@@ -101,17 +110,26 @@ class PremiumController extends Controller
     {
         $premium = Premium::find($id);
         if ($premium) {
-            $validatedData = $request->validate([
-                'user_id' => 'required|exists:users,id',
+            $validardatos = $request->validate([
+                'user_id' => 'required|int',
                 'activo' => 'required|boolean',
                 'fecha_inicio' => 'required|date',
                 'fecha_expiracion' => 'nullable|date'
             ]);
 
-            $premium->user_id = $validatedData['user_id'];
-            $premium->activo = $validatedData['activo'];
-            $premium->fecha_inicio = $validatedData['fecha_inicio'];
-            $premium->fecha_expiracion = $validatedData['fecha_expiracion'] ?? null;
+            // Verificar si el user_id existe en la base de datos
+            $user = User::find($validardatos['user_id']);
+            if (!$user) {
+                return response()->json([
+                    'error' => 'El user_id proporcionado no existe en nuestra base de datos.'
+                ], 404);
+            }
+
+
+            $premium->user_id = $validardatos['user_id'];
+            $premium->activo = $validardatos['activo'];
+            $premium->fecha_inicio = $validardatos['fecha_inicio'];
+            $premium->fecha_expiracion = $validardatos['fecha_expiracion'] ?? null;
 
             $guardado = $premium->save();
 
