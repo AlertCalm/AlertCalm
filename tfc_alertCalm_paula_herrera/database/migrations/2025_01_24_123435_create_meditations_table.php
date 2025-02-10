@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('meditations', function (Blueprint $table) {
             $table->id(); 
             $table->string('titulo'); 
-            $table->enum('categoria', ['relajacion', 'respiracion', 'mindfulness', 'otra'])->nullable();
+            $table->enum('categoria', ['relajacion', 'respiracion', 'mindfulness', 'otra']);
             $table->string('file_url'); 
             $table->time('duracion'); 
             $table->string('lenguaje')->default('es');  
