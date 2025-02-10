@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('titulo');
             $table->text('descripcion');
             $table->enum('tipo', ['inundacion', 'terremoto', 'incendio', 'otros']);
-            $table->geometry('localizacion');
+            $table->json('localizacion')->nullable();
             $table->enum('peligro', ['baja', 'media', 'alta']);
             $table->timestamps();
         });
