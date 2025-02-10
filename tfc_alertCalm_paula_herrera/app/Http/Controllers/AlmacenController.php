@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Almacen;
 use Illuminate\Http\Request;
 
 class AlmacenController extends Controller
@@ -11,15 +11,17 @@ class AlmacenController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $almacen = Almacen::all();
+        if ($almacen->isEmpty()) {
+            return response()->json([
+                'error' => 'No se han encontrado contraseñas.'
+            ], 404);
+        } else {
+            return response()->json([
+                'success' => 'Contraseñas encontradas',
+                'data' => $almacen
+            ], 200);
+        }
     }
 
     /**
@@ -27,23 +29,26 @@ class AlmacenController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validardatos = $request->validate([
+            'password' => 'required|string|max:55'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $almacen = new Almacen();
+        // Usamos Hash::make() para encriptar la contraseña
+        $almacen->password = Hash::make($validardatos['password']);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        $guardado = $almacen->save();
+
+        if ($guardado) {
+            return response()->json([
+                'success' => 'Contraseña creada con éxito',
+                'data' => $almacen
+            ], 201);
+        } else {
+            return response()->json([
+                'error' => 'La contraseña no se pudo crear'
+            ], 404);
+        }
     }
 
     /**
@@ -51,7 +56,25 @@ class AlmacenController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $password = Almacen::find($id);
+        if ($password) {
+            $validardatos = $request->validate([
+                'password' => 'required|string|max:55',
+            ]);
+            $password->password = Hash::make($validardatos['password']);
+            $password->save();
+
+            return response()->json([
+                'success' => 'Contraseña actualizada',
+                'data' => $password
+            ], 200);
+        } else {
+            $passwords = Almacen::all();
+            return response()->json([
+                'error' => 'No se ha encontrado la contraseña para poder editarla.',
+                'Lista de contraseñas' => $passwords
+            ]);
+        }
     }
 
     /**
@@ -59,6 +82,19 @@ class AlmacenController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $passElimi = Almacen::find($id);
+        if (!$passElimi) {
+            $pass = Almacen::all();
+            return response()->json([
+                'error' => 'No se ha encontrado la contraseña con ese ID',
+                'Lista de contraseñas' => $pass
+            ], 404);
+        } else {
+            $passElimi->delete();
+            return response()->json([
+                'success' => 'Contraseña eliminada.',
+                'data' => $passElimi
+            ], 200);
+        }
     }
 }
