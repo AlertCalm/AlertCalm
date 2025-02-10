@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Notificacion extends Model
 {
+    protected $table = 'notificaciones';//se indica el nombre correcto de la tabla ya que en laravel por defecto añade una s
     protected $fillable = [
         'user_id',
         'alert_id',
