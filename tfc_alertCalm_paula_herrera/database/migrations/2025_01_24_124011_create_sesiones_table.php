@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sesiones', function (Blueprint $table) {
-            $table->id(); 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');  // Clave foránea, referenciando 'id' de 'users'
-            $table->string('token_sesion');
-            $table->timestamp('inicio_sesion');
-            $table->timestamp('fin_sesion')->nullable();
+        Schema::create('sessions', function (Blueprint $table) {
+            $table->string('id')->primary();  // Laravel usa un ID string en sesiones
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->longText('payload');  // Necesario para Laravel
+            $table->integer('last_activity');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sesiones');
+        Schema::dropIfExists('sessions');
     }
 };
