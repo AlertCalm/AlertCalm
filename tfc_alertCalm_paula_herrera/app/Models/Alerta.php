@@ -7,13 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Alerta extends Model
 {
     protected $fillable = [
-        'tiutlo',
+        'titulo',
         'descripcion',
         'tipo',
         'localizacion',
         'peligro'
     ];
 
+    protected $casts = [
+        'localizacion' => 'array',
+    ];//para que me devuelva localizacion como un array
 
     // Una alerta va a tener un solo protocolo
     public function protocolo()
