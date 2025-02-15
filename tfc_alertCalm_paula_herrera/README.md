@@ -484,6 +484,111 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 *************************************MEDITATIONS*******************************************
 
+
+### 1. `GET /meditaciones`
+
+**Descripción:** Obtiene la lista de favoritos registrados en el sistema.
+
+- **Método:** GET
+- **URL:** `/meditaciones`
+- **Parámetros:** Ninguno.
+- **Respuesta Exitosa (200 OK):**
+```json
+{
+  "success": "Meditaciones encontradas",
+  "data": [
+    {
+      "id": 1,
+      "titulo": "Officiis et eos.",
+      "categoria": "otra",
+      "file_url": "http://www.gulgowski.biz/aut-et-esse-voluptate-tempora-sunt-eum",
+      "duracion": "20:09:48",
+      "lenguaje": "es",
+      "created_at": "2025-02-15T18:25:50.000000Z",
+      "updated_at": "2025-02-15T18:25:50.000000Z"
+    },
+    {
+      "id": 2,
+      "titulo": "Ipsam officia minima beatae.",
+      "categoria": "relajacion",
+      "file_url": "http://www.metz.net/",
+      "duracion": "05:11:47",
+      "lenguaje": "es",
+      "created_at": "2025-02-15T18:25:50.000000Z",
+      "updated_at": "2025-02-15T18:25:50.000000Z"
+    }
+  ]
+}
+```
+
+### 1. `POST /favoritos`
+
+**Descripción:** Crea un nuevo meditacion en el sistema.
+**Método:** POST
+- **URL:** `/favoritos`
+- **Parámetros:** 
+```json
+
+```
+
+- **Respuesta Exitosa (201 Created):** 
+```json
+
+```
+
+### 1. `GET /meditaciones/{id}`
+
+**Descripción:** Encuentra la meditacion según su id.
+**Método:** GET
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id de la meditacion a buscar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": "Meditacion encontrada",
+  "data": {
+    "id": 1,
+    "titulo": "Officiis et eos.",
+    "categoria": "otra",
+    "file_url": "http://www.gulgowski.biz/aut-et-esse-voluptate-tempora-sunt-eum",
+    "duracion": "20:09:48",
+    "lenguaje": "es",
+    "created_at": "2025-02-15T18:25:50.000000Z",
+    "updated_at": "2025-02-15T18:25:50.000000Z"
+  }
+}
+```
+
+
+### 1. `DELETE /meditaciones/{id}`
+
+**Descripción:** Elimina la meditacion encontrada por su id.
+**Método:** DELETE
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id meditacion a eliminar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+
+```
+
+### 1. `PUT /meditaciones/{id}`
+
+**Descripción:** Actualiza la meditacion encontrado por el id.
+
+ - **Método:** PUT
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id de la meditacion a actualizar
+```json
+
+```
+
+- **Respuesta Exitosa (200 OK):**
+```json
+
+```
+
 *************************************MUSICA*******************************************
 
 *************************************NOTIFICACIONES*******************************************

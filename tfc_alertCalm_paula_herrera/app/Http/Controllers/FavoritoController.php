@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Favorito;
+use App\Models\Meditation;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,16 +13,20 @@ class FavoritoController extends Controller
      */
     public function index()
     {
-        $favoritos=Favorito::all();
-        if($favoritos->isEmpty()){
+        $favoritos = Favorito::with(['user', 'meditacion', 'musica'])->get();
+    
+        if ($favoritos->isEmpty()) {
             return response()->json([
-                'error'=>'No se han encontrado favoritos.'], 404);
-        }else{
-            return response()->json([
-                'success' => 'Favoritos encontradas',
-                'data' => $favoritos], 200);
+                'error' => 'No se han encontrado favoritos.'
+            ], 404);
         }
+    
+        return response()->json([
+            'success' => 'Favoritos encontrados',
+            'data' => $favoritos
+        ], 200);
     }
+    
 
     /**
      * Show the form for creating a new resource.

@@ -52,7 +52,7 @@ class MeditationController extends Controller
         $meditacion->categoria = $validardatos['categoria'];
         $meditacion->file_url = $validardatos['file_url'];
         $meditacion->duracion = $validardatos['duracion'];
-        $meditacion->lenguaje = $lenguaje;
+        $meditacion->lenguaje = $lenguaje['lenguaje'];
     
         $guardado = $meditacion->save();
     
