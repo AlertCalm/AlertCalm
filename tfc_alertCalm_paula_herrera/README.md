@@ -213,6 +213,143 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 *************************************GATEGORÍAS*******************************************
 
+### 1. `GET /categorias`
+
+**Descripción:** Obtiene la lista de categorias registradas en el sistema.
+
+- **Método:** GET
+- **URL:** `/categorias`
+- **Parámetros:** Ninguno.
+- **Respuesta Exitosa (200 OK):**
+```json
+{
+  "success": "Categorias encontradas",
+  "data": [
+    {
+      "id": 6,
+      "nombreCategoria": "Relajación",
+      "descripcion": "Categoría enfocada en contenido para relajación.",
+      "imagenCategoria": "ruta/a/imagen_relajacion.jpg",
+      "created_at": "2025-02-15T16:12:30.000000Z",
+      "updated_at": "2025-02-15T16:12:30.000000Z"
+    },
+    {
+      "id": 7,
+      "nombreCategoria": "Ansiedad",
+      "descripcion": "Contenido dirigido a ayudar con la ansiedad.",
+      "imagenCategoria": "ruta/a/imagen_ansiedad.jpg",
+      "created_at": "2025-02-15T16:12:30.000000Z",
+      "updated_at": "2025-02-15T16:12:30.000000Z"
+    }
+  ]
+}
+```
+
+### 1. `POST /categorias`
+
+**Descripción:** Crea una nueva categoria en el sistema.
+**Método:** POST
+- **URL:** `/categorias`
+- **Parámetros:** 
+```json
+{
+    "nombreCategoria": "Dormir",
+    "descripcion": "Categoría enfocada en contenido para dormirse.",
+    "imagenCategoria": "ruta/a/imagen_dormir.jpg"
+}
+```
+
+- **Respuesta Exitosa (201 Created):** 
+```json
+{
+  "success": "Categoria creado con éxito",
+  "data": {
+    "nombreCategoria": "Dormir",
+    "descripcion": "Categoría enfocada en contenido para dormirse.",
+    "imagenCategoria": "ruta/a/imagen_dormir.jpg",
+    "updated_at": "2025-02-15T16:14:22.000000Z",
+    "created_at": "2025-02-15T16:14:22.000000Z",
+    "id": 9
+  }
+}
+```
+
+### 1. `GET /categorias/{id}`
+
+**Descripción:** Encuentra la categoria según su id.
+**Método:** GET
+- **URL:** `/categorias/{id}`
+- **Parámetros:** id de la categoria a buscar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": "Categoria encontrada",
+  "data": {
+    "id": 8,
+    "nombreCategoria": "Mindfulness",
+    "descripcion": "Categoría enfocada en la práctica del mindfulness.",
+    "imagenCategoria": "ruta/a/imagen_mindfulness.jpg",
+    "created_at": "2025-02-15T16:12:30.000000Z",
+    "updated_at": "2025-02-15T16:12:30.000000Z"
+  }
+}
+```
+
+
+### 1. `DELETE /categorias/{id}`
+
+**Descripción:** Elimina la categoria encontrado por su id.
+**Método:** DELETE
+- **URL:** `/categorias/{id}`
+- **Parámetros:** id categoria a eliminar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": "Categoria eliminada.",
+  "data": {
+    "id": 9,
+    "nombreCategoria": "Dormir actualizado",
+    "descripcion": "Categoría enfocada en contenido para dormirse.",
+    "imagenCategoria": "ruta/a/imagen_dormir.jpg",
+    "created_at": "2025-02-15T16:14:22.000000Z",
+    "updated_at": "2025-02-15T16:15:12.000000Z"
+  }
+}
+```
+
+### 1. `PUT /categorias/{id}`
+
+**Descripción:** Actualiza la categoria encontrado por el id.
+
+ - **Método:** PUT
+- **URL:** `/categorias/{id}`
+- **Parámetros:** id de la categoria a actualizar
+```json
+{
+  "nombreCategoria": "Dormir actualizado",
+  "descripcion": "Categoría enfocada en contenido para dormirse.",
+  "imagenCategoria": "ruta/a/imagen_dormir.jpg"
+}
+```
+
+- **Respuesta Exitosa (200 OK):**
+```json
+{
+  "success": "Categoría actualizada",
+  "data": {
+    "id": 9,
+    "nombreCategoria": "Dormir actualizado",
+    "descripcion": "Categoría enfocada en contenido para dormirse.",
+    "imagenCategoria": "ruta/a/imagen_dormir.jpg",
+    "created_at": "2025-02-15T16:14:22.000000Z",
+    "updated_at": "2025-02-15T16:15:12.000000Z"
+  }
+}
+```
+
+
 *************************************FAVORITOS*******************************************
 
 *************************************MEDITATIONS*******************************************
