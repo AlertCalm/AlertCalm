@@ -1,9 +1,9 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\Music;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
+use App\Models\Music;
 use Faker\Factory as Faker;
 
 class MusicSeeder extends Seeder
@@ -13,7 +13,7 @@ class MusicSeeder extends Seeder
      */
     public function run(): void
     {
-       $faker = Faker::create();
+        $faker = Faker::create();
 
         // Insertar 10 registros de música en la tabla 'music'
         foreach (range(1, 10) as $index) {

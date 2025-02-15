@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -18,16 +16,14 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'username',
+        'name', // Cambiado de 'username' a 'name'
         'email',
         'password',
         'localizacion',
         'edad',
         'preferencias',
-        'lenguaje'
+        'lenguaje',
     ];
-
-    
 
     // Una usuario va a tener un notificacion
     public function protocolo()
@@ -41,25 +37,24 @@ class User extends Authenticatable
         return $this->hasMany(Notificacion::class, 'user_id');
     }
 
-     // Un user tiene muchas favs
-     public function favorito()
-     {
-         return $this->hasMany(Favorito::class, 'user_id');
-     }
+    // Un user tiene muchas favs
+    public function favorito()
+    {
+        return $this->hasMany(Favorito::class, 'user_id');
+    }
 
-      // Un user puede tener varias sesiones
-     public function sesiones()
-     {
-         return $this->hasMany(Sesion::class);
-     }
+    // Un user puede tener varias sesiones
+    public function sesiones()
+    {
+        return $this->hasMany(Sesion::class);
+    }
 
-    //  un usuario solo puede tener 1 suscripcion
-     public function premium()
+    // Un usuario solo puede tener una suscripción
+    public function premium()
     {
         return $this->hasOne(Premium::class);
     }
 
-    
     /**
      * The attributes that should be hidden for serialization.
      *

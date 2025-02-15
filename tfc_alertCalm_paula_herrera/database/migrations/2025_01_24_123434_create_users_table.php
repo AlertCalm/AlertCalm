@@ -12,15 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->string('password');// Contraseña hasheada
-            $table->string('localizacion')->nullable();
-            $table->integer('edad')->nullable();
-            $table->text('preferencias')->nullable();
-            $table->string('lenguaje')->default('es');
-            $table->timestamps();// Campos de created_at y updated_at
+            $table->id(); // ID del usuario, lo crea Laravel automáticamente
+            $table->string('name'); // Nombre del usuario (en vez de username)
+            $table->string('email')->unique(); // Email (predeterminado en Laravel)
+            $table->timestamp('email_verified_at')->nullable(); // Verificación de email (predeterminado en Laravel)
+            $table->string('password'); // Contraseña (predeterminada en Laravel)
+            $table->rememberToken(); // Token de "recordarme" (predeterminado en Laravel)
+            $table->string('localizacion')->nullable(); // Localización personalizada
+            $table->integer('edad')->nullable(); // Edad personalizada
+            $table->text('preferencias')->nullable(); // Preferencias del usuario
+            $table->string('lenguaje')->default('es'); // Lenguaje por defecto
+            $table->timestamps(); // Campos de created_at y updated_at (predeterminados en Laravel)
         });
     }
 
@@ -32,3 +34,4 @@ return new class extends Migration
         Schema::dropIfExists('users');
     }
 };
+

@@ -352,6 +352,136 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 *************************************FAVORITOS*******************************************
 
+### 1. `GET /favoritos`
+
+**Descripción:** Obtiene la lista de favoritos registrados en el sistema.
+
+- **Método:** GET
+- **URL:** `/favoritos`
+- **Parámetros:** Ninguno.
+- **Respuesta Exitosa (200 OK):**
+```json
+{
+  "success": "Favoritos encontrados",
+  "data": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "tipo_fav": "meditation",
+      "item_id": 4,
+      "created_at": "2025-02-15T16:32:02.000000Z",
+      "updated_at": "2025-02-15T16:32:02.000000Z"
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "tipo_fav": "music",
+      "item_id": 6,
+      "created_at": "2025-02-15T16:32:02.000000Z",
+      "updated_at": "2025-02-15T16:32:02.000000Z"
+    }
+  ]
+}
+```
+
+### 1. `POST /favoritos`
+
+**Descripción:** Crea un nuevo favorito en el sistema.
+**Método:** POST
+- **URL:** `/favoritos`
+- **Parámetros:** 
+```json
+
+```
+
+- **Respuesta Exitosa (201 Created):** 
+```json
+
+```
+
+### 1. `GET /favoritos/{id}`
+
+**Descripción:** Encuentra el favorito según su id.
+**Método:** GET
+- **URL:** `/favoritos/{id}`
+- **Parámetros:** id del favorito a buscar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": "Favoritos encontrados",
+  "data": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "tipo_fav": "meditation",
+      "item_id": 4,
+      "created_at": "2025-02-15T16:32:02.000000Z",
+      "updated_at": "2025-02-15T16:32:02.000000Z",
+      "user": {
+        "id": 1,
+        "username": "lang.ruth",
+        "email": "bosco.leanne@example.net",
+        "localizacion": "Parisianview",
+        "edad": 33,
+        "preferencias": "Quas earum maxime ad ad ipsa. Velit quia et eveniet aut quia ut. Magni iure maiores reiciendis facere ipsam labore. Porro accusamus sed veritatis rerum eveniet eius consectetur.",
+        "lenguaje": "es",
+        "created_at": "2025-02-15T16:26:32.000000Z",
+        "updated_at": "2025-02-15T16:26:32.000000Z"
+      }
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "tipo_fav": "music",
+      "item_id": 6,
+      "created_at": "2025-02-15T16:32:02.000000Z",
+      "updated_at": "2025-02-15T16:32:02.000000Z",
+      "user": {
+        "id": 1,
+        "username": "lang.ruth",
+        "email": "bosco.leanne@example.net",
+        "localizacion": "Parisianview",
+        "edad": 33,
+        "preferencias": "Quas earum maxime ad ad ipsa. Velit quia et eveniet aut quia ut. Magni iure maiores reiciendis facere ipsam labore. Porro accusamus sed veritatis rerum eveniet eius consectetur.",
+        "lenguaje": "es",
+        "created_at": "2025-02-15T16:26:32.000000Z",
+        "updated_at": "2025-02-15T16:26:32.000000Z"
+      }
+    }
+  ]
+}
+```
+
+
+### 1. `DELETE /favoritos/{id}`
+
+**Descripción:** Elimina el favorito encontrado por su id.
+**Método:** DELETE
+- **URL:** `/favoritos/{id}`
+- **Parámetros:** id favorito a eliminar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+
+```
+
+### 1. `PUT /favoritos/{id}`
+
+**Descripción:** Actualiza el favorito encontrado por el id.
+
+ - **Método:** PUT
+- **URL:** `/favoritos/{id}`
+- **Parámetros:** id del favorito a actualizar
+```json
+
+```
+
+- **Respuesta Exitosa (200 OK):**
+```json
+
+```
+
 *************************************MEDITATIONS*******************************************
 
 *************************************MUSICA*******************************************
