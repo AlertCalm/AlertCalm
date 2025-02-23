@@ -8,28 +8,24 @@ use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // Usamos Faker (librería de Laravel) para generar datos aleatorios
         $faker = Faker::create();
 
-        // Crear 10 usuarios
         foreach (range(1, 10) as $index) {
             User::create([
-                'name' => $faker->name,  // Generar nombre completo
-                'email' => $faker->unique()->safeEmail, // Generar email único
-                'email_verified_at' => now(), // Verificar el email automáticamente
-                'password' => Hash::make('password'), // Contraseña cifrada
-                'localizacion' => $faker->city,  // Ciudad aleatoria
-                'edad' => $faker->numberBetween(18, 65), // Edad aleatoria
-                'preferencias' => $faker->text(200), // Preferencias aleatorias
-                'lenguaje' => 'es',  // Lenguaje por defecto
+                'name' => $faker->name,
+                'email' => $faker->unique()->safeEmail,
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+                'localizacion' => json_encode([
+                    'lat' => $faker->latitude,
+                    'lng' => $faker->longitude
+                ]),  // Localización como un JSON
+                'edad' => $faker->numberBetween(18, 65),
+                'preferencias' => $faker->text(200),
+                'lenguaje' => 'es',
             ]);
         }
     }
-
-    // Para ejecutar el seeders: php artisan db:seed --class=UserSeeder
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable(); // Verificación de email (predeterminado en Laravel)
             $table->string('password'); // Contraseña (predeterminada en Laravel)
             $table->rememberToken(); // Token de "recordarme" (predeterminado en Laravel)
-            $table->string('localizacion')->nullable(); // Localización personalizada
+            $table->json('localizacion')->nullable();
             $table->integer('edad')->nullable(); // Edad personalizada
             $table->text('preferencias')->nullable(); // Preferencias del usuario
             $table->string('lenguaje')->default('es'); // Lenguaje por defecto

@@ -5,6 +5,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
@@ -13,15 +14,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        $usuarios=User::all();
-        if($usuarios->isEmpty()){
-            return response()->json([
-                'error'=>'No se han encontrado usuarios.'], 404);
-        }else{
-            return response()->json([
-                'success' => 'Usuarios encontrados',
-                'data' => $usuarios], 200);
-        }
+        $users = User::all()->map(function ($user) {
+            if (is_string($user->localizacion)) {
+                $user->localizacion = json_decode($user->localizacion, true);
+            }
+            return $user;
+        });
+        
+        return response()->json([
+            'success' => 'Usuarios encontrados',
+            'data' => $users
+        ], 200);
+        
     }
 
     /**
@@ -38,23 +42,28 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validardatos=$request->validate([
-            'username'=>'required|string|max:55',
+            'name'=>'required|string|max:55',
             'email' =>'required|string|max:55',
             'password'=>'required|string|max:55',
-            'localizacion'=>'nullable|string|max:255',
+            'localizacion'=>'nullable|array',
+            'localizacion.lat' => 'required|numeric|between:-90,90',
+            'localizacion.lng' => 'required|numeric|between:-180,180',
             'edad'=>'nullable|integer',
             'preferencias'=>'nullable|string|max:255',
             'lenguaje'=>'required|string|max:55'
         ]);
 
         $user = new User();
-        $user->username = $validardatos['username'];
+        $user->name = $validardatos['name'];
         $user->email = $validardatos['email'];
         $user->password = Hash::make($validardatos['password']); // Hash
-        $user->localizacion = $validardatos['localizacion'];
+        $user->localizacion = $validardatos['localizacion'];//guardar como JSON
         $user->edad = $validardatos['edad'];
         $user->preferencias = $validardatos['preferencias'];
         $user->lenguaje = $validardatos['lenguaje'];
+
+        //establecer un valor para el  
+        $user->email_verified_at = now();
 
         $guardado=$user->save();
 

@@ -25,6 +25,12 @@ class User extends Authenticatable
         'lenguaje',
     ];
 
+
+    // asegura que localizacion se maneja como un json
+    protected $casts = [
+        'localizacion' => 'array',
+    ];
+
     // Una usuario va a tener un notificacion
     public function protocolo()
     {

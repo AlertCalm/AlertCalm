@@ -796,23 +796,23 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 *************************************NOTIFICACIONES*******************************************
 
-### 1. `GET /meditaciones`
+### 1. `GET /notificaciones`
 
-**Descripción:** Obtiene la lista de favoritos registrados en el sistema.
+**Descripción:** Obtiene la lista de notificaciones registradas en el sistema.
 
 - **Método:** GET
-- **URL:** `/meditaciones`
+- **URL:** `/notificaciones`
 - **Parámetros:** Ninguno.
 - **Respuesta Exitosa (200 OK):**
 ```json
 
 ```
 
-### 1. `POST /meditaciones`
+### 1. `POST /notificaciones`
 
-**Descripción:** Crea una nueva meditacion en el sistema.
+**Descripción:** Crea una nueva notificación en el sistema.
 **Método:** POST
-- **URL:** `/meditaciones`
+- **URL:** `/notificaciones`
 - **Parámetros:** 
 ```json
 
@@ -823,12 +823,12 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 ```
 
-### 1. `GET /meditaciones/{id}`
+### 1. `GET /notificaciones/{id}`
 
-**Descripción:** Encuentra la meditacion según su id.
+**Descripción:** Encuentra la notificación según su id.
 **Método:** GET
-- **URL:** `/meditaciones/{id}`
-- **Parámetros:** id de la meditacion a buscar
+- **URL:** `/notificaciones/{id}`
+- **Parámetros:** id de la notificación a buscar
 - **Respuesta Exitosa (200 OK):**
 
 ```json
@@ -837,25 +837,25 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 ```
 
 
-### 1. `DELETE /meditaciones/{id}`
+### 1. `DELETE /notificaciones/{id}`
 
-**Descripción:** Elimina la meditacion encontrada por su id.
+**Descripción:** Elimina la notificación encontrada por su id.
 **Método:** DELETE
-- **URL:** `/meditaciones/{id}`
-- **Parámetros:** id meditacion a eliminar
+- **URL:** `/notificaciones/{id}`
+- **Parámetros:** id notificación a eliminar
 - **Respuesta Exitosa (200 OK):**
 
 ```json
 
 ```
 
-### 1. `PUT /meditaciones/{id}`
+### 1. `PUT /notificaciones/{id}`
 
-**Descripción:** Actualiza la meditacion encontrado por el id.
+**Descripción:** Actualiza la notificación encontrada por el id.
 
  - **Método:** PUT
-- **URL:** `/meditaciones/{id}`
-- **Parámetros:** id de la meditacion a actualizar
+- **URL:** `/notificaciones/{id}`
+- **Parámetros:** id de la notificación a actualizar
 ```json
 
 ```
@@ -1008,23 +1008,23 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 ```
 
 *************************************USERS*******************************************
-### 1. `GET /meditaciones`
+### 1. `GET /users`
 
-**Descripción:** Obtiene la lista de favoritos registrados en el sistema.
+**Descripción:** Obtiene la lista de ususarios registrados en el sistema.
 
 - **Método:** GET
-- **URL:** `/meditaciones`
+- **URL:** `/users`
 - **Parámetros:** Ninguno.
 - **Respuesta Exitosa (200 OK):**
 ```json
 
 ```
 
-### 1. `POST /meditaciones`
+### 1. `POST /users`
 
-**Descripción:** Crea una nueva meditacion en el sistema.
+**Descripción:** Crea un nuevo user en el sistema.
 **Método:** POST
-- **URL:** `/meditaciones`
+- **URL:** `/users`
 - **Parámetros:** 
 ```json
 
@@ -1035,12 +1035,12 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 ```
 
-### 1. `GET /meditaciones/{id}`
+### 1. `GET /users/{id}`
 
-**Descripción:** Encuentra la meditacion según su id.
+**Descripción:** Encuentra el user según su id.
 **Método:** GET
-- **URL:** `/meditaciones/{id}`
-- **Parámetros:** id de la meditacion a buscar
+- **URL:** `/users/{id}`
+- **Parámetros:** id del user a buscar
 - **Respuesta Exitosa (200 OK):**
 
 ```json
@@ -1049,25 +1049,25 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 ```
 
 
-### 1. `DELETE /meditaciones/{id}`
+### 1. `DELETE /users/{id}`
 
-**Descripción:** Elimina la meditacion encontrada por su id.
+**Descripción:** Elimina el user encontrado por su id.
 **Método:** DELETE
-- **URL:** `/meditaciones/{id}`
-- **Parámetros:** id meditacion a eliminar
+- **URL:** `/users/{id}`
+- **Parámetros:** id user a eliminar
 - **Respuesta Exitosa (200 OK):**
 
 ```json
 
 ```
 
-### 1. `PUT /meditaciones/{id}`
+### 1. `PUT /users/{id}`
 
-**Descripción:** Actualiza la meditacion encontrado por el id.
+**Descripción:** Actualiza el user encontrado por el id.
 
  - **Método:** PUT
-- **URL:** `/meditaciones/{id}`
-- **Parámetros:** id de la meditacion a actualizar
+- **URL:** `/users/{id}`
+- **Parámetros:** id del user a actualizar
 ```json
 
 ```
