@@ -487,7 +487,7 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 ### 1. `GET /meditaciones`
 
-**Descripción:** Obtiene la lista de favoritos registrados en el sistema.
+**Descripción:** Obtiene la lista de las meditaciones registradas en el sistema.
 
 - **Método:** GET
 - **URL:** `/meditaciones`
@@ -521,11 +521,298 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 }
 ```
 
-### 1. `POST /favoritos`
+### 1. `POST /meditaciones`
 
-**Descripción:** Crea un nuevo meditacion en el sistema.
+**Descripción:** Crea una nueva meditacion en el sistema.
 **Método:** POST
-- **URL:** `/favoritos`
+- **URL:** `/meditaciones`
+- **Parámetros:** 
+```json
+  {
+    "titulo": "sweet.",
+    "categoria": "relajacion",
+    "file_url": "http://www.gulgowski.biz/aut-et-esse-voluptate-tempora-sunt-eum",
+    "duracion": "20:09:48",
+    "lenguaje": "es"
+  }
+```
+
+- **Respuesta Exitosa (201 Created):** 
+```json
+{
+  "success": "Meditación creada con éxito",
+  "data": {
+    "titulo": "sweet.",
+    "categoria": "relajacion",
+    "file_url": "http://www.gulgowski.biz/aut-et-esse-voluptate-tempora-sunt-eum",
+    "duracion": "20:09:48",
+    "lenguaje": "es",
+    "updated_at": "2025-02-23T12:46:08.000000Z",
+    "created_at": "2025-02-23T12:46:08.000000Z",
+    "id": 12
+  }
+}
+```
+
+### 1. `GET /meditaciones/{id}`
+
+**Descripción:** Encuentra la meditacion según su id.
+**Método:** GET
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id de la meditacion a buscar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": "Meditacion encontrada",
+  "data": {
+    "id": 12,
+    "titulo": "sweet.",
+    "categoria": "relajacion",
+    "file_url": "http://www.gulgowski.biz/aut-et-esse-voluptate-tempora-sunt-eum",
+    "duracion": "20:09:48",
+    "lenguaje": "es",
+    "created_at": "2025-02-23T12:46:08.000000Z",
+    "updated_at": "2025-02-23T12:46:08.000000Z"
+  }
+}
+
+```
+
+
+### 1. `DELETE /meditaciones/{id}`
+
+**Descripción:** Elimina la meditacion encontrada por su id.
+**Método:** DELETE
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id meditacion a eliminar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": "Meditación eliminada.",
+  "data": {
+    "id": 3,
+    "titulo": "Facilis in libero neque nam.",
+    "categoria": "mindfulness",
+    "file_url": "http://kassulke.com/soluta-dicta-ipsa-quisquam-iusto.html",
+    "duracion": "12:56:45",
+    "lenguaje": "fr",
+    "created_at": "2025-02-15T18:25:50.000000Z",
+    "updated_at": "2025-02-15T18:25:50.000000Z"
+  }
+}
+```
+
+### 1. `PUT /meditaciones/{id}`
+
+**Descripción:** Actualiza la meditacion encontrado por el id.
+
+ - **Método:** PUT
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id de la meditacion a actualizar
+```json
+{
+ "titulo": "sweet actualizada.",
+      "categoria": "relajacion",
+      "file_url": "http://www.gulgowski.biz/aut-et-esse-voluptate-tempora-sunt-eum",
+      "duracion": "20:09:48",
+      "lenguaje": "es"
+}
+```
+
+- **Respuesta Exitosa (200 OK):**
+```json
+{
+  "success": "Meditación actualizada",
+  "data": {
+    "id": 12,
+    "titulo": "sweet actualizada.",
+    "categoria": "relajacion",
+    "file_url": "http://www.gulgowski.biz/aut-et-esse-voluptate-tempora-sunt-eum",
+    "duracion": "20:09:48",
+    "lenguaje": "es",
+    "created_at": "2025-02-23T12:46:08.000000Z",
+    "updated_at": "2025-02-23T12:52:38.000000Z"
+  }
+}
+```
+
+*************************************MUSICA*******************************************
+
+
+
+### 1. `GET /musica`
+
+**Descripción:** Obtiene la lista de la musica registrada en el sistema.
+
+- **Método:** GET
+- **URL:** `/musica`
+- **Parámetros:** Ninguno.
+- **Respuesta Exitosa (200 OK):**
+```json
+{
+  "success": "Músicas encontrada",
+  "data": [
+    {
+      "id": 1,
+      "titulo": "Asperiores autem ab.",
+      "categoria": "ansiedad",
+      "file_url": "https://www.hand.com/non-quod-quia-commodi-quod-et-ex-commodi",
+      "duracion": "23:54:25",
+      "lenguaje": "fr",
+      "created_at": "2025-02-15T18:32:08.000000Z",
+      "updated_at": "2025-02-15T18:32:08.000000Z"
+    },
+    {
+      "id": 2,
+      "titulo": "Aut dolores at.",
+      "categoria": "meditacion",
+      "file_url": "http://www.williamson.com/culpa-quo-non-tempore-odio-soluta-alias-aperiam.html",
+      "duracion": "08:24:55",
+      "lenguaje": "en",
+      "created_at": "2025-02-15T18:32:08.000000Z",
+      "updated_at": "2025-02-15T18:32:08.000000Z"
+    }
+  ]
+}
+```
+
+### 1. `POST /musica`
+
+**Descripción:** Crea una nueva musica en el sistema.
+**Método:** POST
+- **URL:** `/musica`
+- **Parámetros:** 
+```json
+{
+ "titulo": "Apocalypse",
+  "categoria": "relajacion",
+  "file_url": "http://www.Apocalypse.com/culpa-quo-non-tempore-odio-soluta-alias-aperiam.html",
+  "duracion": "08:24:55",
+  "lenguaje": "en"
+}
+```
+
+- **Respuesta Exitosa (201 Created):** 
+```json
+{
+  "success": "Música creada con éxito",
+  "data": {
+    "titulo": "Apocalypse",
+    "categoria": "relajacion",
+    "file_url": "http://www.Apocalypse.com/culpa-quo-non-tempore-odio-soluta-alias-aperiam.html",
+    "duracion": "08:24:55",
+    "lenguaje": "en",
+    "updated_at": "2025-02-23T12:57:39.000000Z",
+    "created_at": "2025-02-23T12:57:39.000000Z",
+    "id": 11
+  }
+}
+```
+
+### 1. `GET /musica/{id}`
+
+**Descripción:** Encuentra la musica según su id.
+**Método:** GET
+- **URL:** `/musica/{id}`
+- **Parámetros:** id de la musica a buscar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": "Música encontrada",
+  "data": {
+    "id": 11,
+    "titulo": "Apocalypse",
+    "categoria": "relajacion",
+    "file_url": "http://www.Apocalypse.com/culpa-quo-non-tempore-odio-soluta-alias-aperiam.html",
+    "duracion": "08:24:55",
+    "lenguaje": "en",
+    "created_at": "2025-02-23T12:57:39.000000Z",
+    "updated_at": "2025-02-23T12:57:39.000000Z"
+  }
+}
+```
+
+
+### 1. `DELETE /musica/{id}`
+
+**Descripción:** Elimina la musica encontrada por su id.
+**Método:** DELETE
+- **URL:** `/musica/{id}`
+- **Parámetros:** id musica a eliminar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": "Música eliminada.",
+  "data": {
+    "id": 10,
+    "titulo": "Voluptas dolorem minima corrupti.",
+    "categoria": "meditacion",
+    "file_url": "http://www.schmeler.org/",
+    "duracion": "15:57:53",
+    "lenguaje": "fr",
+    "created_at": "2025-02-15T18:32:08.000000Z",
+    "updated_at": "2025-02-15T18:32:08.000000Z"
+  }
+}
+```
+
+### 1. `PUT /musica/{id}`
+
+**Descripción:** Actualiza la musica encontrado por el id.
+
+ - **Método:** PUT
+- **URL:** `/musica/{id}`
+- **Parámetros:** id de la musica a actualizar
+```json
+{
+ "titulo": "Apocalypse actualizada",
+    "categoria": "relajacion",
+    "file_url": "http://www.Apocalypse.com/culpa-quo-non-tempore-odio-soluta-alias-aperiam.html",
+    "duracion": "08:24:55",
+    "lenguaje": "en"
+}
+```
+
+- **Respuesta Exitosa (200 OK):**
+```json
+{
+  "success": "Música actualizada",
+  "data": {
+    "id": 11,
+    "titulo": "Apocalypse actualizada",
+    "categoria": "relajacion",
+    "file_url": "http://www.Apocalypse.com/culpa-quo-non-tempore-odio-soluta-alias-aperiam.html",
+    "duracion": "08:24:55",
+    "lenguaje": "en",
+    "created_at": "2025-02-23T12:57:39.000000Z",
+    "updated_at": "2025-02-23T13:00:00.000000Z"
+  }
+}
+```
+
+*************************************NOTIFICACIONES*******************************************
+
+### 1. `GET /meditaciones`
+
+**Descripción:** Obtiene la lista de favoritos registrados en el sistema.
+
+- **Método:** GET
+- **URL:** `/meditaciones`
+- **Parámetros:** Ninguno.
+- **Respuesta Exitosa (200 OK):**
+```json
+
+```
+
+### 1. `POST /meditaciones`
+
+**Descripción:** Crea una nueva meditacion en el sistema.
+**Método:** POST
+- **URL:** `/meditaciones`
 - **Parámetros:** 
 ```json
 
@@ -545,19 +832,8 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **Respuesta Exitosa (200 OK):**
 
 ```json
-{
-  "success": "Meditacion encontrada",
-  "data": {
-    "id": 1,
-    "titulo": "Officiis et eos.",
-    "categoria": "otra",
-    "file_url": "http://www.gulgowski.biz/aut-et-esse-voluptate-tempora-sunt-eum",
-    "duracion": "20:09:48",
-    "lenguaje": "es",
-    "created_at": "2025-02-15T18:25:50.000000Z",
-    "updated_at": "2025-02-15T18:25:50.000000Z"
-  }
-}
+
+
 ```
 
 
@@ -589,12 +865,214 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 ```
 
-*************************************MUSICA*******************************************
-
-*************************************NOTIFICACIONES*******************************************
-
 *************************************PREMIUM*******************************************
+
+### 1. `GET /meditaciones`
+
+**Descripción:** Obtiene la lista de favoritos registrados en el sistema.
+
+- **Método:** GET
+- **URL:** `/meditaciones`
+- **Parámetros:** Ninguno.
+- **Respuesta Exitosa (200 OK):**
+```json
+
+```
+
+### 1. `POST /meditaciones`
+
+**Descripción:** Crea una nueva meditacion en el sistema.
+**Método:** POST
+- **URL:** `/meditaciones`
+- **Parámetros:** 
+```json
+
+```
+
+- **Respuesta Exitosa (201 Created):** 
+```json
+
+```
+
+### 1. `GET /meditaciones/{id}`
+
+**Descripción:** Encuentra la meditacion según su id.
+**Método:** GET
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id de la meditacion a buscar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+
+
+```
+
+
+### 1. `DELETE /meditaciones/{id}`
+
+**Descripción:** Elimina la meditacion encontrada por su id.
+**Método:** DELETE
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id meditacion a eliminar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+
+```
+
+### 1. `PUT /meditaciones/{id}`
+
+**Descripción:** Actualiza la meditacion encontrado por el id.
+
+ - **Método:** PUT
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id de la meditacion a actualizar
+```json
+
+```
+
+- **Respuesta Exitosa (200 OK):**
+```json
+
+```
 
 *************************************SESION*******************************************
 
+### 1. `GET /meditaciones`
+
+**Descripción:** Obtiene la lista de favoritos registrados en el sistema.
+
+- **Método:** GET
+- **URL:** `/meditaciones`
+- **Parámetros:** Ninguno.
+- **Respuesta Exitosa (200 OK):**
+```json
+
+```
+
+### 1. `POST /meditaciones`
+
+**Descripción:** Crea una nueva meditacion en el sistema.
+**Método:** POST
+- **URL:** `/meditaciones`
+- **Parámetros:** 
+```json
+
+```
+
+- **Respuesta Exitosa (201 Created):** 
+```json
+
+```
+
+### 1. `GET /meditaciones/{id}`
+
+**Descripción:** Encuentra la meditacion según su id.
+**Método:** GET
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id de la meditacion a buscar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+
+
+```
+
+
+### 1. `DELETE /meditaciones/{id}`
+
+**Descripción:** Elimina la meditacion encontrada por su id.
+**Método:** DELETE
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id meditacion a eliminar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+
+```
+
+### 1. `PUT /meditaciones/{id}`
+
+**Descripción:** Actualiza la meditacion encontrado por el id.
+
+ - **Método:** PUT
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id de la meditacion a actualizar
+```json
+
+```
+
+- **Respuesta Exitosa (200 OK):**
+```json
+
+```
+
 *************************************USERS*******************************************
+### 1. `GET /meditaciones`
+
+**Descripción:** Obtiene la lista de favoritos registrados en el sistema.
+
+- **Método:** GET
+- **URL:** `/meditaciones`
+- **Parámetros:** Ninguno.
+- **Respuesta Exitosa (200 OK):**
+```json
+
+```
+
+### 1. `POST /meditaciones`
+
+**Descripción:** Crea una nueva meditacion en el sistema.
+**Método:** POST
+- **URL:** `/meditaciones`
+- **Parámetros:** 
+```json
+
+```
+
+- **Respuesta Exitosa (201 Created):** 
+```json
+
+```
+
+### 1. `GET /meditaciones/{id}`
+
+**Descripción:** Encuentra la meditacion según su id.
+**Método:** GET
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id de la meditacion a buscar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+
+
+```
+
+
+### 1. `DELETE /meditaciones/{id}`
+
+**Descripción:** Elimina la meditacion encontrada por su id.
+**Método:** DELETE
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id meditacion a eliminar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+
+```
+
+### 1. `PUT /meditaciones/{id}`
+
+**Descripción:** Actualiza la meditacion encontrado por el id.
+
+ - **Método:** PUT
+- **URL:** `/meditaciones/{id}`
+- **Parámetros:** id de la meditacion a actualizar
+```json
+
+```
+
+- **Respuesta Exitosa (200 OK):**
+```json
+
+```
