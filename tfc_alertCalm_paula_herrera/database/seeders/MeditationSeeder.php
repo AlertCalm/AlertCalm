@@ -21,7 +21,7 @@ class MeditationSeeder extends Seeder
         foreach (range(1, 10) as $index) {
             Meditation::create([
                 'titulo'    => $faker->sentence(3),  // Título de la meditación (aleatorio)
-                'categoria' => $faker->randomElement(['relajacion', 'respiracion', 'mindfulness', 'otra']),  // Categoría
+                'categoria' => $faker->randomElement(['relajacion', 'respiracion', 'mindfulness','dormir', 'activacion', 'otra']),  // Categoría
                 'file_url'  => $faker->url(),  // URL del archivo de la meditación
                 'duracion'  => $faker->time('H:i:s'),  // Duración en formato H:i:s
                 'lenguaje'  => $faker->randomElement(['es', 'en', 'fr']),  // Lenguaje aleatorio

@@ -38,7 +38,7 @@ class MeditationController extends Controller
     {
         $validardatos=$request->validate([
             'titulo'   => 'required|string|max:205',
-            'categoria'  => 'required|in:relajacion,respiracion,mindfulness,otra',
+            'categoria'  => 'required|in:relajacion,respiracion,mindfulness,dormir,activacion,otra',
             'file_url'   => 'required|string|max:512',
             'duracion'   => 'required|date_format:H:i:s',
             'lenguaje'   => 'nullable|string|max:3'
@@ -107,7 +107,7 @@ class MeditationController extends Controller
         if($meditacion){
             $validardatos=$request->validate([
                 'titulo'   => 'required|string|max:205',
-                'categoria'  => 'required|in:relajacion,respiracion,mindfulness,otra',
+                'categoria'  => 'required|in:relajacion,respiracion,mindfulness,dormir, activacion,otra',
                 'file_url'   => 'required|string|max:512',
                 'duracion'   => 'required|date_format:H:i:s',
                 'lenguaje'   => 'nullable|string|max:3'

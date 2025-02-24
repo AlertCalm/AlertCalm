@@ -21,4 +21,11 @@ return [
         'min' => 'La :attribute debe tener al menos :min caracteres.',
         'regex' => 'La :attribute debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.',
     ],
+    'user_id.required' => 'El campo de usuario es obligatorio.',
+    'user_id.exists' => 'El usuario seleccionado no existe.',
+    'alert_id.exists' => 'La alerta seleccionada no existe.',
+    'mensaje.required' => 'El mensaje es obligatorio.',
+    'mensaje.string' => 'El mensaje debe ser una cadena de texto.',
+    'mensaje.max' => 'El mensaje no puede tener más de 255 caracteres.',
+
 ];

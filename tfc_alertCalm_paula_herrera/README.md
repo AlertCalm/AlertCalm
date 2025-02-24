@@ -1008,12 +1008,27 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **URL:** `/notificaciones`
 - **Parámetros:** 
 ```json
+{
+      "user_id": 6,
+      "alert_id": 2,
+      "mensaje": "Mantengase en casa hasta las 18h de la tarde para evitar el calor extremo"
+}
 
 ```
 
 - **Respuesta Exitosa (201 Created):** 
 ```json
-
+{
+  "success": "Notificación creada con éxito.",
+  "data": {
+    "user_id": 6,
+    "alert_id": 2,
+    "mensaje": "Mantengase en casa hasta las 18h de la tarde para evitar el calor extremo",
+    "updated_at": "2025-02-24T14:12:43.000000Z",
+    "created_at": "2025-02-24T14:12:43.000000Z",
+    "id": 11
+  }
+}
 ```
 
 ### 1. `GET /notificaciones/{id}`
@@ -1060,23 +1075,23 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 *************************************PREMIUM*******************************************
 
-### 1. `GET /meditaciones`
+### 1. `GET /premium`
 
-**Descripción:** Obtiene la lista de favoritos registrados en el sistema.
+**Descripción:** Obtiene la lista de los premium registrados en el sistema.
 
 - **Método:** GET
-- **URL:** `/meditaciones`
+- **URL:** `/premium`
 - **Parámetros:** Ninguno.
 - **Respuesta Exitosa (200 OK):**
 ```json
 
 ```
 
-### 1. `POST /meditaciones`
+### 1. `POST /premium`
 
-**Descripción:** Crea una nueva meditacion en el sistema.
+**Descripción:** Crea una nuevo premium en el sistema.
 **Método:** POST
-- **URL:** `/meditaciones`
+- **URL:** `/premium`
 - **Parámetros:** 
 ```json
 
@@ -1087,12 +1102,12 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 ```
 
-### 1. `GET /meditaciones/{id}`
+### 1. `GET /premium/{id}`
 
-**Descripción:** Encuentra la meditacion según su id.
+**Descripción:** Encuentra el premium según su id.
 **Método:** GET
-- **URL:** `/meditaciones/{id}`
-- **Parámetros:** id de la meditacion a buscar
+- **URL:** `/premium/{id}`
+- **Parámetros:** id del premium a buscar
 - **Respuesta Exitosa (200 OK):**
 
 ```json
@@ -1101,25 +1116,25 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 ```
 
 
-### 1. `DELETE /meditaciones/{id}`
+### 1. `DELETE /premium/{id}`
 
-**Descripción:** Elimina la meditacion encontrada por su id.
+**Descripción:** Elimina el premium encontrado por su id.
 **Método:** DELETE
-- **URL:** `/meditaciones/{id}`
-- **Parámetros:** id meditacion a eliminar
+- **URL:** `/premium/{id}`
+- **Parámetros:** id premium a eliminar
 - **Respuesta Exitosa (200 OK):**
 
 ```json
 
 ```
 
-### 1. `PUT /meditaciones/{id}`
+### 1. `PUT /premium/{id}`
 
-**Descripción:** Actualiza la meditacion encontrado por el id.
+**Descripción:** Actualiza el premium encontrado por el id.
 
  - **Método:** PUT
-- **URL:** `/meditaciones/{id}`
-- **Parámetros:** id de la meditacion a actualizar
+- **URL:** `/premium/{id}`
+- **Parámetros:** id del premium a actualizar
 ```json
 
 ```
@@ -1131,12 +1146,12 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 *************************************SESION*******************************************
 
-### 1. `GET /meditaciones`
+### 1. `GET /sesiones`
 
-**Descripción:** Obtiene la lista de favoritos registrados en el sistema.
+**Descripción:** Obtiene la lista de sesiones registradas en el sistema.
 
 - **Método:** GET
-- **URL:** `/meditaciones`
+- **URL:** `/sesiones`
 - **Parámetros:** Ninguno.
 - **Respuesta Exitosa (200 OK):**
 ```json
@@ -1145,11 +1160,12 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 ### 1. `POST /meditaciones`
 
-**Descripción:** Crea una nueva meditacion en el sistema.
+**Descripción:** Crea una nueva sesión en el sistema.
 **Método:** POST
 - **URL:** `/meditaciones`
 - **Parámetros:** 
 ```json
+
 
 ```
 
@@ -1158,12 +1174,12 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 ```
 
-### 1. `GET /meditaciones/{id}`
+### 1. `GET /sesiones/{id}`
 
-**Descripción:** Encuentra la meditacion según su id.
+**Descripción:** Encuentra la sesión según su id.
 **Método:** GET
 - **URL:** `/meditaciones/{id}`
-- **Parámetros:** id de la meditacion a buscar
+- **Parámetros:** id de la sesión a buscar
 - **Respuesta Exitosa (200 OK):**
 
 ```json
@@ -1172,26 +1188,27 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 ```
 
 
-### 1. `DELETE /meditaciones/{id}`
+### 1. `DELETE /sesiones/{id}`
 
-**Descripción:** Elimina la meditacion encontrada por su id.
+**Descripción:** Elimina la sesión encontrada por su id.
 **Método:** DELETE
-- **URL:** `/meditaciones/{id}`
-- **Parámetros:** id meditacion a eliminar
+- **URL:** `/sesiones/{id}`
+- **Parámetros:** id sesión a eliminar
 - **Respuesta Exitosa (200 OK):**
 
 ```json
 
 ```
 
-### 1. `PUT /meditaciones/{id}`
+### 1. `PUT /sesiones/{id}`
 
-**Descripción:** Actualiza la meditacion encontrado por el id.
+**Descripción:** Actualiza la sesión encontrado por el id.
 
  - **Método:** PUT
-- **URL:** `/meditaciones/{id}`
-- **Parámetros:** id de la meditacion a actualizar
+- **URL:** `/sesiones/{id}`
+- **Parámetros:** id de la sesión a actualizar
 ```json
+
 
 ```
 
