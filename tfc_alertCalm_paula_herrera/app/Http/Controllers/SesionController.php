@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Sesion;
 use App\Models\User;
+use Carbon\Carbon; 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class SesionController extends Controller
      */
     public function index()
     {
-        $sesiones = Sesion::with('usuario')->get();
+        $sesiones = Sesion::with('user')->get();
         if($sesiones->isEmpty()){
             return response()->json([
             'error'=>'No se han encontrado sesiones', 404]);
@@ -22,36 +23,44 @@ class SesionController extends Controller
         }
     }
 
+    
     /**
      * Crear una nueva sesión.
-     */
+    */
     public function store(Request $request)
     {
+        // Validar que el user_id es proporcionado
         $validarDatos = $request->validate([
-            'user_id'      => 'required|int',
-            'inicio_sesion' => 'required|date',
-            'fin_sesion'   => 'nullable|date|after:inicio_sesion',
+            'user_id' => 'required|int',
         ]);
 
-         // Verificar si el user_id existe en la base de datos
-         $user = User::find($validarDatos['user_id']);
-         if (!$user) {
-             return response()->json([
-                 'error' => 'El user_id proporcionado no existe en nuestra base de datos.'
-             ], 404);
-         }
+        // Verificar si el user_id existe en la base de datos
+        $user = User::find($validarDatos['user_id']);
+        if (!$user) {
+            return response()->json([
+                'error' => 'El user_id proporcionado no existe en nuestra base de datos.'
+            ], 404);
+        }
 
-
-
+        // Crear la nueva sesión
         $sesion = Sesion::create([
-            'user_id'       => $validarDatos['user_id'],
-            'token_sesion'  => Str::random(60),//genera un token aleatorio
-            'inicio_sesion' => $validarDatos['inicio_sesion'],
-            'fin_sesion'    => $validarDatos['fin_sesion'] ?? null,
+            'user_id' => $validarDatos['user_id'],
+            'ip_address' => $request->ip(), // IP del cliente
+            'user_agent' => $request->userAgent(), // Información del navegador
+            'payload' => json_encode([]), // Puedes almacenar datos adicionales si es necesario
+            'last_activity' => Carbon::now()->timestamp, // Fecha de última actividad
+            'inicio_sesion' => Carbon::now(), // Hora de inicio de sesión
+            'fin_sesion' => null, // Aún no ha terminado la sesión
         ]);
 
+        // Retornar la respuesta con la sesión creada
         return response()->json($sesion, 201);
     }
+
+     
+     
+    
+    
 
     /**
      * Obtener una sesión específica.

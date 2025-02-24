@@ -1272,7 +1272,59 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **Parámetros:** Ninguno.
 - **Respuesta Exitosa (200 OK):**
 ```json
-
+{
+  "success": "Suscripciones premium encontradas",
+  "data": [
+    {
+      "id": 1,
+      "user_id": 9,
+      "activo": 0,
+      "fecha_inicio": "2024-04-15 15:17:37",
+      "fecha_expiracion": "2025-06-12 00:10:09",
+      "created_at": "2025-02-24T13:21:30.000000Z",
+      "updated_at": "2025-02-24T13:21:30.000000Z",
+      "user": {
+        "id": 9,
+        "name": "Taryn McCullough",
+        "email": "hintz.johathan@example.com",
+        "email_verified_at": "2025-02-24T13:21:29.000000Z",
+        "localizacion": {
+          "lat": 1.480852,
+          "lng": 66.114042
+        },
+        "edad": 54,
+        "preferencias": "Veritatis deserunt similique aut dignissimos. Et repudiandae assumenda minima perspiciatis et sit ab.",
+        "lenguaje": "es",
+        "created_at": "2025-02-24T13:21:29.000000Z",
+        "updated_at": "2025-02-24T13:21:29.000000Z"
+      }
+    },
+    {
+      "id": 2,
+      "user_id": 6,
+      "activo": 0,
+      "fecha_inicio": "2024-04-23 09:55:42",
+      "fecha_expiracion": "2025-05-16 03:28:41",
+      "created_at": "2025-02-24T13:21:30.000000Z",
+      "updated_at": "2025-02-24T13:21:30.000000Z",
+      "user": {
+        "id": 6,
+        "name": "Mrs. Vita White",
+        "email": "deckow.timothy@example.net",
+        "email_verified_at": "2025-02-24T13:21:28.000000Z",
+        "localizacion": {
+          "lat": 9.05194,
+          "lng": 24.257687
+        },
+        "edad": 63,
+        "preferencias": "Eligendi voluptate labore non at eos quibusdam. Enim nemo excepturi deleniti praesentium ipsum praesentium error. Rerum maiores et doloribus animi enim doloribus distinctio.",
+        "lenguaje": "es",
+        "created_at": "2025-02-24T13:21:28.000000Z",
+        "updated_at": "2025-02-24T13:21:28.000000Z"
+      }
+    }
+  ]
+}
 ```
 
 ### 1. `POST /premium`
@@ -1282,12 +1334,38 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **URL:** `/premium`
 - **Parámetros:** 
 ```json
-
+{
+   "user_id": 2,
+    "activo": true
+}
 ```
 
 - **Respuesta Exitosa (201 Created):** 
 ```json
-
+{
+  "success": "Suscripción premium creada con éxito.",
+  "data": {
+    "user_id": 2,
+    "activo": true,
+    "fecha_inicio": "2025-02-24T19:18:21.403353Z",
+    "fecha_expiracion": "2026-02-24T19:18:21.403372Z",
+    "updated_at": "2025-02-24T19:18:21.000000Z",
+    "created_at": "2025-02-24T19:18:21.000000Z",
+    "id": 19,
+    "user": {
+      "id": 2,
+      "name": "Bernadette Hoppe",
+      "email": "kiera.monahan@example.com",
+      "email_verified_at": "2025-02-24T13:21:27.000000Z",
+      "localizacion": "{\"lat\":73.889796,\"lng\":52.455898}",
+      "edad": 41,
+      "preferencias": "Ullam sit eum saepe quas. Molestias enim consequatur quis recusandae voluptatem repellat.",
+      "lenguaje": "es",
+      "created_at": "2025-02-24T13:21:27.000000Z",
+      "updated_at": "2025-02-24T13:21:27.000000Z"
+    }
+  }
+}
 ```
 
 ### 1. `GET /premium/{id}`
@@ -1299,7 +1377,33 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **Respuesta Exitosa (200 OK):**
 
 ```json
-
+{
+  "success": "Suscripción premium encontrada",
+  "data": {
+    "id": 1,
+    "user_id": 9,
+    "activo": 0,
+    "fecha_inicio": "2024-04-15 15:17:37",
+    "fecha_expiracion": "2025-06-12 00:10:09",
+    "created_at": "2025-02-24T13:21:30.000000Z",
+    "updated_at": "2025-02-24T13:21:30.000000Z",
+    "user": {
+      "id": 9,
+      "name": "Taryn McCullough",
+      "email": "hintz.johathan@example.com",
+      "email_verified_at": "2025-02-24T13:21:29.000000Z",
+      "localizacion": {
+        "lat": 1.480852,
+        "lng": 66.114042
+      },
+      "edad": 54,
+      "preferencias": "Veritatis deserunt similique aut dignissimos. Et repudiandae assumenda minima perspiciatis et sit ab.",
+      "lenguaje": "es",
+      "created_at": "2025-02-24T13:21:29.000000Z",
+      "updated_at": "2025-02-24T13:21:29.000000Z"
+    }
+  }
+}
 
 ```
 
@@ -1313,7 +1417,10 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **Respuesta Exitosa (200 OK):**
 
 ```json
-
+{
+  "success": "Suscripción premium eliminada.",
+  "id": 1
+}
 ```
 
 ### 1. `PUT /premium/{id}`
@@ -1324,12 +1431,38 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **URL:** `/premium/{id}`
 - **Parámetros:** id del premium a actualizar
 ```json
-
+{
+  "user_id": 8,
+  "activo": 0
+}
 ```
 
 - **Respuesta Exitosa (200 OK):**
 ```json
-
+{
+  "success": "Suscripción premium actualizada",
+  "data": {
+    "id": 16,
+    "user_id": 8,
+    "activo": 0,
+    "fecha_inicio": "2025-02-24 20:26:17",
+    "fecha_expiracion": "2026-02-24 19:16:54",
+    "created_at": "2025-02-24T19:16:54.000000Z",
+    "updated_at": "2025-02-24T19:26:21.000000Z",
+    "user": {
+      "id": 8,
+      "name": "Charity Rippin IV",
+      "email": "blabadie@example.net",
+      "email_verified_at": "2025-02-24T13:21:29.000000Z",
+      "localizacion": "{\"lat\":55.611687,\"lng\":-56.342206}",
+      "edad": 33,
+      "preferencias": "Omnis eius eligendi voluptas et dolorem quisquam. Temporibus ipsa itaque iusto. Officia aliquid fugiat facilis consectetur ducimus harum. Perspiciatis harum sed aut sequi quis.",
+      "lenguaje": "es",
+      "created_at": "2025-02-24T13:21:29.000000Z",
+      "updated_at": "2025-02-24T13:21:29.000000Z"
+    }
+  }
+}
 ```
 
 *************************************SESION*******************************************

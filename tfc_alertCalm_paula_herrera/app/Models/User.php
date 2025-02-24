@@ -61,6 +61,12 @@ class User extends Authenticatable
         return $this->hasOne(Premium::class);
     }
 
+    // Cada premium pertenece unicamente a un user
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

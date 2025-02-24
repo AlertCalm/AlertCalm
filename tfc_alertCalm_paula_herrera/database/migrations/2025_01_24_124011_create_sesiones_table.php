@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();  // Laravel usa un ID string en sesiones
+            $table->string('id')->primary();
+            $table->timestamp('inicio_sesion')->nullable();  // Solo esta línea
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
-            $table->longText('payload');  // Necesario para Laravel
+            $table->longText('payload');
             $table->integer('last_activity');
             $table->timestamps();
         });

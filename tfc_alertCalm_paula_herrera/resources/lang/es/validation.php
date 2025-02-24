@@ -26,6 +26,6 @@ return [
     'alert_id.exists' => 'La alerta seleccionada no existe.',
     'mensaje.required' => 'El mensaje es obligatorio.',
     'mensaje.string' => 'El mensaje debe ser una cadena de texto.',
-    'mensaje.max' => 'El mensaje no puede tener más de 255 caracteres.',
+    'mensaje.max' => 'El mensaje no puede tener más de 255 caracteres.'
 
 ];

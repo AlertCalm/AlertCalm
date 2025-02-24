@@ -15,8 +15,8 @@ class Premium extends Model
     ];
 
     // Una suscripción premium pertenece a un usuario
-    public function usuario()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
