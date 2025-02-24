@@ -8,22 +8,21 @@ use Illuminate\Database\QueryException;
 class NotificacionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Función que muestra todas las notificación de la base de datos.
      */
     public function index()
     {
         $notificaciones = Notificacion::with(['user', 'alerta'])->get();
-
-        // Convertir las localizaciones a objetos si son cadenas JSON
+    
         foreach ($notificaciones as $notificacion) {
-            if (is_string($notificacion->user->localizacion)) {
+            if ($notificacion->user && is_string($notificacion->user->localizacion)) {
                 $notificacion->user->localizacion = json_decode($notificacion->user->localizacion);
             }
-            if (is_string($notificacion->alerta->localizacion)) {
+            if ($notificacion->alerta && is_string($notificacion->alerta->localizacion)) {
                 $notificacion->alerta->localizacion = json_decode($notificacion->alerta->localizacion);
-            } 
+            }
         }
-      
+    
         if ($notificaciones->isEmpty()) {
             return response()->json([
                 'error' => 'No se han encontrado notificaciones.'
@@ -35,34 +34,40 @@ class NotificacionController extends Controller
             ], 200);
         }
     }
+    
 
     /**
-     * Store a newly created resource in storage.
+     * Función que crea una notificación y valida sus campos.
+     * Devuelve un json con la información de la notificación creada.
      */
    
     public function store(Request $request)
     {
         try {
-            // Validar los datos recibidos
             $validardatos = $request->validate([
                 'user_id' => 'required|exists:users,id',
                 'alert_id' => 'nullable|exists:alertas,id',
                 'mensaje' => 'required|string|max:255'
             ]);
     
-            // Crear la notificación
             $notificacion = new Notificacion();
             $notificacion->user_id = $validardatos['user_id'];
             $notificacion->alert_id = $validardatos['alert_id'] ?? null; // Si no se manda alert_id, se pone null
             $notificacion->mensaje = $validardatos['mensaje'];
             $notificacion->save();
     
+            if ($notificacion->user && is_string($notificacion->user->localizacion)) {
+                $notificacion->user->localizacion = json_decode($notificacion->user->localizacion);
+            }
+            if ($notificacion->alerta && is_string($notificacion->alerta->localizacion)) {
+                $notificacion->alerta->localizacion = json_decode($notificacion->alerta->localizacion);
+            }
+
             return response()->json([
                 'success' => 'Notificación creada con éxito.',
                 'data' => $notificacion
             ], 201);
         } catch (ValidationException $e) {
-            // Manejar errores de validación
             return response()->json([
                 'error' => 'Error de validación',
                 'detalles' => $e->errors()
@@ -84,26 +89,42 @@ class NotificacionController extends Controller
     
 
     /**
-     * Display the specified resource.
+     * Función que muestra la notificación buscada por su id.
+     * Devuelve un json con la información de la notificación.
      */
     public function show($id)
     {
-        $notificacion = Notificacion::find($id);
+        // Intentar obtener la notificación con sus relaciones
+        $notificacion = Notificacion::with(['user', 'alerta'])->find($id);
 
-        if ($notificacion) {
+        // Verificar si la notificación no fue encontrada
+        if (is_null($notificacion)) {
+            $notificaciones=Notificacion::all();
             return response()->json([
-                'success' => 'Notificación encontrada.',
-                'data' => $notificacion
-            ], 200);
-        } else {
-            return response()->json([
-                'error' => 'Notificación no encontrada.'
+                'error' => 'Notificación no encontrada.',
+                'Notificaciones'=> $notificaciones
             ], 404);
         }
+
+        // Si la notificación fue encontrada, proceder a verificar y decodificar las localizaciones
+        if ($notificacion->user && is_string($notificacion->user->localizacion)) {
+            $notificacion->user->localizacion = json_decode($notificacion->user->localizacion);
+        }
+        if ($notificacion->alerta && is_string($notificacion->alerta->localizacion)) {
+            $notificacion->alerta->localizacion = json_decode($notificacion->alerta->localizacion);
+        }
+
+        // Retornar la respuesta exitosa con la notificación encontrada
+        return response()->json([
+            'success' => 'Notificación encontrada.',
+            'data' => $notificacion
+        ], 200);
     }
 
+
     /**
-     * Update the specified resource in storage.
+     * Función que actualiza una notificación pasandole la respuesta y el id por parámetros.
+     * Devuelve un json con la información actualizada o un notificación no encontrada.
      */
     public function update(Request $request, $id)
     {
@@ -113,39 +134,55 @@ class NotificacionController extends Controller
             'alert_id' => 'nullable|exists:alertas,id',
             'mensaje' => 'required|string|max:255'
         ]);
-
-        // Buscar la notificación por su ID
+    
         $notificacion = Notificacion::find($id);
-
+    
         if (!$notificacion) {
             return response()->json([
                 'error' => 'Notificación no encontrada.'
             ], 404);
         }
-
-        // Actualizar la notificación
+    
         $notificacion->user_id = $validardatos['user_id'];
         $notificacion->alert_id = $validardatos['alert_id'] ?? null;
         $notificacion->mensaje = $validardatos['mensaje'];
         $notificacion->save();
-
+        $notificacion->load(['user', 'alerta']);//actuializa los datos cambidos de user_id y de alerta_id
+    
+        // Decodificar los campos 'localizacion' si son cadenas JSON
+        if ($notificacion->user && is_string($notificacion->user->localizacion)) {
+            $notificacion->user->localizacion = json_decode($notificacion->user->localizacion);
+        }
+        if ($notificacion->alerta && is_string($notificacion->alerta->localizacion)) {
+            $notificacion->alerta->localizacion = json_decode($notificacion->alerta->localizacion);
+        }
+    
         return response()->json([
             'success' => 'Notificación actualizada.',
             'data' => $notificacion
         ], 200);
     }
+    
 
     /**
-     * Remove the specified resource from storage.
+     * Función que elimina una notificación pasandole el id por parámetros.
+     * Devuelve un json con la notificación eliminada.
      */
     public function destroy($id)
     {
-        $notificacion = Notificacion::find($id);
+        $notificacion = Notificacion::with(['user', 'alerta'])->find($id);
 
         if (!$notificacion) {
             return response()->json([
-                'error' => 'No se ha encontrado la notificación.'
+                'error' => 'No se ha encontrado id de la notificación.'
             ], 404);
+        }
+
+        if ($notificacion->user && is_string($notificacion->user->localizacion)) {
+            $notificacion->user->localizacion = json_decode($notificacion->user->localizacion);
+        }
+        if ($notificacion->alerta && is_string($notificacion->alerta->localizacion)) {
+            $notificacion->alerta->localizacion = json_decode($notificacion->alerta->localizacion);
         }
 
         // Eliminar la notificación

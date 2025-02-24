@@ -998,6 +998,47 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **Parámetros:** Ninguno.
 - **Respuesta Exitosa (200 OK):**
 ```json
+{
+  "success": "Notificaciones encontradas.",
+  "data": [
+    { 
+      "id": 11,
+      "user_id": 6,
+      "alert_id": 2,
+      "mensaje": "Mantengase en casa hasta las 18h de la tarde para evitar el calor extremo",
+      "created_at": "2025-02-24T14:12:43.000000Z",
+      "updated_at": "2025-02-24T14:12:43.000000Z",
+      "user": {
+        "id": 6,
+        "name": "Mrs. Vita White",
+        "email": "deckow.timothy@example.net",
+        "email_verified_at": "2025-02-24T13:21:28.000000Z",
+        "localizacion": {
+          "lat": 9.05194,
+          "lng": 24.257687
+        },
+        "edad": 63,
+        "preferencias": "Eligendi voluptate labore non at eos quibusdam. Enim nemo excepturi deleniti praesentium ipsum praesentium error. Rerum maiores et doloribus animi enim doloribus distinctio.",
+        "lenguaje": "es",
+        "created_at": "2025-02-24T13:21:28.000000Z",
+        "updated_at": "2025-02-24T13:21:28.000000Z"
+      },
+      "alerta": {
+        "id": 2,
+        "titulo": "Sunt dicta facilis.",
+        "descripcion": "Omnis consequatur commodi voluptate. Minus rem vitae sed.",
+        "tipo": "otros",
+        "localizacion": {
+          "lat": 61.068701,
+          "lng": -47.387115
+        },
+        "peligro": "media",
+        "created_at": "2025-02-24T13:21:30.000000Z",
+        "updated_at": "2025-02-24T13:21:30.000000Z"
+      }
+    }
+  ]
+}
 
 ```
 
@@ -1009,10 +1050,11 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **Parámetros:** 
 ```json
 {
-      "user_id": 6,
-      "alert_id": 2,
+      "user_id": "3",
+      "alert_id": "10",
       "mensaje": "Mantengase en casa hasta las 18h de la tarde para evitar el calor extremo"
 }
+
 
 ```
 
@@ -1021,12 +1063,40 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 {
   "success": "Notificación creada con éxito.",
   "data": {
-    "user_id": 6,
-    "alert_id": 2,
+    "user_id": "3",
+    "alert_id": "10",
     "mensaje": "Mantengase en casa hasta las 18h de la tarde para evitar el calor extremo",
-    "updated_at": "2025-02-24T14:12:43.000000Z",
-    "created_at": "2025-02-24T14:12:43.000000Z",
-    "id": 11
+    "updated_at": "2025-02-24T17:51:57.000000Z",
+    "created_at": "2025-02-24T17:51:57.000000Z",
+    "id": 21,
+    "user": {
+      "id": 3,
+      "name": "Noah Carroll",
+      "email": "ypollich@example.net",
+      "email_verified_at": "2025-02-24T13:21:27.000000Z",
+      "localizacion": {
+        "lat": -61.143348,
+        "lng": 72.072921
+      },
+      "edad": 50,
+      "preferencias": "Quia labore dignissimos sapiente voluptatibus. Autem saepe numquam est voluptate quo cum. Voluptates ut quis at veritatis. Odit omnis quidem quaerat eligendi enim. Ipsam voluptatem ut ex.",
+      "lenguaje": "es",
+      "created_at": "2025-02-24T13:21:27.000000Z",
+      "updated_at": "2025-02-24T13:21:27.000000Z"
+    },
+    "alerta": {
+      "id": 10,
+      "titulo": "Est excepturi aut aut dignissimos.",
+      "descripcion": "Rerum sequi aliquam distinctio voluptatem. Omnis id labore et. Nemo quia autem libero eaque quia voluptate.",
+      "tipo": "otros",
+      "localizacion": {
+        "lat": 51.555147,
+        "lng": -9.914494
+      },
+      "peligro": "alta",
+      "created_at": "2025-02-24T13:21:30.000000Z",
+      "updated_at": "2025-02-24T13:21:30.000000Z"
+    }
   }
 }
 ```
@@ -1040,7 +1110,45 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **Respuesta Exitosa (200 OK):**
 
 ```json
-
+{
+  "success": "Notificación encontrada.",
+  "data": {
+    "id": 11,
+    "user_id": 6,
+    "alert_id": 2,
+    "mensaje": "Mantengase en casa hasta las 18h de la tarde para evitar el calor extremo",
+    "created_at": "2025-02-24T14:12:43.000000Z",
+    "updated_at": "2025-02-24T14:12:43.000000Z",
+    "user": {
+      "id": 6,
+      "name": "Mrs. Vita White",
+      "email": "deckow.timothy@example.net",
+      "email_verified_at": "2025-02-24T13:21:28.000000Z",
+      "localizacion": {
+        "lat": 9.05194,
+        "lng": 24.257687
+      },
+      "edad": 63,
+      "preferencias": "Eligendi voluptate labore non at eos quibusdam. Enim nemo excepturi deleniti praesentium ipsum praesentium error. Rerum maiores et doloribus animi enim doloribus distinctio.",
+      "lenguaje": "es",
+      "created_at": "2025-02-24T13:21:28.000000Z",
+      "updated_at": "2025-02-24T13:21:28.000000Z"
+    },
+    "alerta": {
+      "id": 2,
+      "titulo": "Sunt dicta facilis.",
+      "descripcion": "Omnis consequatur commodi voluptate. Minus rem vitae sed.",
+      "tipo": "otros",
+      "localizacion": {
+        "lat": 61.068701,
+        "lng": -47.387115
+      },
+      "peligro": "media",
+      "created_at": "2025-02-24T13:21:30.000000Z",
+      "updated_at": "2025-02-24T13:21:30.000000Z"
+    }
+  }
+}
 
 ```
 
@@ -1054,7 +1162,45 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **Respuesta Exitosa (200 OK):**
 
 ```json
-
+{
+  "success": "Notificación eliminada.",
+  "data": {
+    "id": 21,
+    "user_id": 3,
+    "alert_id": 10,
+    "mensaje": "Mantengase en casa hasta las 18h de la tarde para evitar el calor extremo",
+    "created_at": "2025-02-24T17:51:57.000000Z",
+    "updated_at": "2025-02-24T17:51:57.000000Z",
+    "user": {
+      "id": 3,
+      "name": "Noah Carroll",
+      "email": "ypollich@example.net",
+      "email_verified_at": "2025-02-24T13:21:27.000000Z",
+      "localizacion": {
+        "lat": -61.143348,
+        "lng": 72.072921
+      },
+      "edad": 50,
+      "preferencias": "Quia labore dignissimos sapiente voluptatibus. Autem saepe numquam est voluptate quo cum. Voluptates ut quis at veritatis. Odit omnis quidem quaerat eligendi enim. Ipsam voluptatem ut ex.",
+      "lenguaje": "es",
+      "created_at": "2025-02-24T13:21:27.000000Z",
+      "updated_at": "2025-02-24T13:21:27.000000Z"
+    },
+    "alerta": {
+      "id": 10,
+      "titulo": "Est excepturi aut aut dignissimos.",
+      "descripcion": "Rerum sequi aliquam distinctio voluptatem. Omnis id labore et. Nemo quia autem libero eaque quia voluptate.",
+      "tipo": "otros",
+      "localizacion": {
+        "lat": 51.555147,
+        "lng": -9.914494
+      },
+      "peligro": "alta",
+      "created_at": "2025-02-24T13:21:30.000000Z",
+      "updated_at": "2025-02-24T13:21:30.000000Z"
+    }
+  }
+}
 ```
 
 ### 1. `PUT /notificaciones/{id}`
@@ -1065,12 +1211,54 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **URL:** `/notificaciones/{id}`
 - **Parámetros:** id de la notificación a actualizar
 ```json
-
+{
+      "user_id": "3",
+      "alert_id": "4",
+      "mensaje": "Actualizar-Mantengase en casa hasta las 18h de la tarde para evitar el calor extremo"
+}
 ```
 
 - **Respuesta Exitosa (200 OK):**
 ```json
-
+{
+  "success": "Notificación actualizada.",
+  "data": {
+    "id": 22,
+    "user_id": "3",
+    "alert_id": "4",
+    "mensaje": "Actualizar-Mantengase en casa hasta las 18h de la tarde para evitar el calor extremo",
+    "created_at": "2025-02-24T18:00:26.000000Z",
+    "updated_at": "2025-02-24T18:16:33.000000Z",
+    "user": {
+      "id": 3,
+      "name": "Noah Carroll",
+      "email": "ypollich@example.net",
+      "email_verified_at": "2025-02-24T13:21:27.000000Z",
+      "localizacion": {
+        "lat": -61.143348,
+        "lng": 72.072921
+      },
+      "edad": 50,
+      "preferencias": "Quia labore dignissimos sapiente voluptatibus. Autem saepe numquam est voluptate quo cum. Voluptates ut quis at veritatis. Odit omnis quidem quaerat eligendi enim. Ipsam voluptatem ut ex.",
+      "lenguaje": "es",
+      "created_at": "2025-02-24T13:21:27.000000Z",
+      "updated_at": "2025-02-24T13:21:27.000000Z"
+    },
+    "alerta": {
+      "id": 4,
+      "titulo": "Impedit ad nostrum.",
+      "descripcion": "Perspiciatis possimus omnis dolor nemo consequatur minus excepturi et. Maxime necessitatibus dolorem dicta nobis voluptatem libero commodi.",
+      "tipo": "inundacion",
+      "localizacion": {
+        "lat": 13.35991,
+        "lng": -104.053719
+      },
+      "peligro": "media",
+      "created_at": "2025-02-24T13:21:30.000000Z",
+      "updated_at": "2025-02-24T13:21:30.000000Z"
+    }
+  }
+}
 ```
 
 *************************************PREMIUM*******************************************
