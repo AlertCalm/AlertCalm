@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 
@@ -41,43 +40,65 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validardatos=$request->validate([
-            'name'=>'required|string|max:55',
-            'email' =>'required|string|max:55',
-            'password'=>'required|string|max:55',
-            'localizacion'=>'nullable|array',
-            'localizacion.lat' => 'required|numeric|between:-90,90',
-            'localizacion.lng' => 'required|numeric|between:-180,180',
-            'edad'=>'nullable|integer',
-            'preferencias'=>'nullable|string|max:255',
-            'lenguaje'=>'required|string|max:55'
-        ]);
-
-        $user = new User();
-        $user->name = $validardatos['name'];
-        $user->email = $validardatos['email'];
-        $user->password = Hash::make($validardatos['password']); // Hash
-        $user->localizacion = $validardatos['localizacion'];//guardar como JSON
-        $user->edad = $validardatos['edad'];
-        $user->preferencias = $validardatos['preferencias'];
-        $user->lenguaje = $validardatos['lenguaje'];
-
-        //establecer un valor para el  
-        $user->email_verified_at = now();
-
-        $guardado=$user->save();
-
-        if($guardado){
+        try {
+            // Validar los datos
+            $validardatos = $request->validate([
+                'name' => 'required|string|max:55',
+                'email' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    'unique:users,email',
+                    'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', // Expresión regular para el correo
+                ],
+               'password' => 'required|string|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+                'localizacion' => 'nullable|array',
+                'localizacion.lat' => 'required_with:localizacion|numeric|between:-90,90',
+                'localizacion.lng' => 'required_with:localizacion|numeric|between:-180,180',
+                'edad' => 'nullable|integer',
+                'preferencias' => 'nullable|string|max:255',
+                'lenguaje' => 'required|string|max:55'
+            ]);
+    
+            // Crear usuario
+            $user = new User();
+            $user->name = $validardatos['name'];
+            $user->email = $validardatos['email'];
+            $user->password = Hash::make($validardatos['password']); // Hash de la contraseña
+            $user->localizacion = $validardatos['localizacion'] ?? null; // Guardar como JSON
+            $user->edad = $validardatos['edad'] ?? null;
+            $user->preferencias = $validardatos['preferencias'] ?? null;
+            $user->lenguaje = $validardatos['lenguaje'];
+            $user->email_verified_at = now();
+    
+            if ($user->save()) {
+                return response()->json([
+                    'success' => 'Usuario creado con éxito',
+                    'data' => $user
+                ], 201);
+            } else {
+                return response()->json([
+                    'error' => 'El usuario no se pudo crear'
+                ], 500);
+            }
+        } catch (ValidationException $e) {
             return response()->json([
-                'success' => 'Usuario creado con éxito',
-                'data'=>$user
-            ], 201);
-        }else{
+                'error' => 'Error de validación',
+                'detalles' => $e->errors() // Laravel devuelve los errores en un array asociativo(mirar en resources/lang/es para que lo devuelva en español)
+            ], 422);
+        } catch (QueryException $e) {
             return response()->json([
-                'error' => 'El usuario no se puede crear'
-            ], 404);
+                'error' => 'Error en la base de datos',
+                'mensaje' => 'El email ya está registrado o hay un problema con la inserción'
+            ], 400);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error interno del servidor',
+                'mensaje' => $e->getMessage()
+            ], 500);
         }
     }
+    
 
     /**
      *Función que al poner el id en la url devuelve el usuario encontrado
@@ -117,38 +138,74 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validardatos=$request->validate([
-            'username'=>'required|string|max:55',
-            'email' =>'required|string|max:55',
-            'password'=>'required|string|max:55',
-            'localizacion'=>'nullable|string|max:255',
-            'edad'=>'nullable|integer',
-            'preferencias'=>'nullable|string|max:255',
-            'lenguaje'=>'required|string|max:55'
-        ]);
-
-        $userEditar=User::find($id);
-
-        if(!$userEditar){
-            return response()->json(['error' => 'Usuario no editado'], 404);
-        }
-
-        $userEditar->username=$validardatos['username'];
-        $userEditar->email=$validardatos['email'];
-        $userEditar->password= Hash::make($validardatos['password']);
-        $userEditar->localizacion=$validardatos['localizacion'];
-        $userEditar->edad=$validardatos['edad'];
-        $userEditar->preferencias=$validardatos['preferencias'];
-        $userEditar->lenguaje=$validardatos['lenguaje'];
-
-        $userEditar->save();
-
-        return response()->json([
-            'success' => 'Usuario editado',
-            'Data'=>$userEditar
+        try {
+            // Buscar el usuario
+            $userEditar = User::find($id);
+        
+            if (!$userEditar) {
+                return response()->json(['error' => 'Usuario no encontrado'], 404);
+            }
+        
+            // Validar los datos
+            $validardatos = $request->validate([
+                'name' => 'required|string|max:55',
+                'email' => 'required|string|max:55|email', //no se permitirá modificarlo
+                'password' => 'nullable|string|max:55', 
+                'localizacion' => 'nullable|array',
+                'localizacion.lat' => 'required_with:localizacion|numeric|between:-90,90',
+                'localizacion.lng' => 'required_with:localizacion|numeric|between:-180,180',
+                'edad' => 'nullable|integer',
+                'preferencias' => 'nullable|string|max:255',
+                'lenguaje' => 'required|string|max:55'
+            ]);
+        
+            // Si el correo electrónico se intenta cambiar, se lanza un error
+            if ($validardatos['email'] !== $userEditar->email) {
+                return response()->json([
+                    'error' => 'El correo electrónico no puede ser cambiado.'
+                ], 400);
+            }
+        
+            //Actualizar datos
+            $userEditar->name = $validardatos['name'];
+            $userEditar->email = $userEditar->email; 
+            if (!empty($validardatos['password'])) {
+                $userEditar->password = Hash::make($validardatos['password']);
+            }
+            $userEditar->localizacion = $validardatos['localizacion'] ?? $userEditar->localizacion; // Si no se pasa, conserva el anterior
+            $userEditar->edad = $validardatos['edad'] ?? $userEditar->edad;
+            $userEditar->preferencias = $validardatos['preferencias'] ?? $userEditar->preferencias;
+            $userEditar->lenguaje = $validardatos['lenguaje'];
+        
+            // Guardar los cambios
+            $userEditar->save();
+        
+            return response()->json([
+                'success' => 'Usuario editado correctamente',
+                'data' => $userEditar
             ], 200);
-
+        
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => 'Error de validación',
+                'detalles' => $e->errors() // Laravel devuelve los errores en un array asociativo
+            ], 422);
+        } catch (QueryException $e) {
+            return response()->json([
+                'error' => 'Error en la base de datos',
+                'mensaje' => 'Hubo un problema con la actualización de los datos'
+            ], 400);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error interno del servidor',
+                'mensaje' => $e->getMessage()
+            ], 500);
+        }
     }
+    
+    
+    
+    
 
     /**
      * Función que elimina un usuario, pasandole su id por parámetros

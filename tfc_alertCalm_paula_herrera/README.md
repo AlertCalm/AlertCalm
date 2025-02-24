@@ -26,8 +26,201 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 ## Endpoints
 
+*************************************USERS*******************************************
+### 1. `GET /users`
+
+**Descripción:** Obtiene la lista de ususarios registrados en el sistema.
+
+- **Método:** GET
+- **URL:** `/users`
+- **Parámetros:** Ninguno.
+- **Respuesta Exitosa (200 OK):**
+```json
+{
+  "success": "Usuarios encontrados",
+  "data": [
+    {
+      "id": 1,
+      "name": "Juan",
+      "email": "juan@example.com",
+      "email_verified_at": "2025-02-23T20:24:48.000000Z",
+      "localizacion": {
+        "lat": 40.7128,
+        "lng": -74.006
+      },
+      "edad": 30,
+      "preferencias": "Comida",
+      "lenguaje": "es",
+      "created_at": "2025-02-23T20:24:48.000000Z",
+      "updated_at": "2025-02-23T20:24:48.000000Z"
+    },
+    {
+      "id": 3,
+      "name": "Paula",
+      "email": "paula@example.com",
+      "email_verified_at": "2025-02-23T21:18:26.000000Z",
+      "localizacion": {
+        "lat": -10.31086,
+        "lng": -11.734886
+      },
+      "edad": 24,
+      "preferencias": "Musica relajante.",
+      "lenguaje": "es",
+      "created_at": "2025-02-23T21:18:26.000000Z",
+      "updated_at": "2025-02-23T21:18:26.000000Z"
+    }
+  ]
+}
+```
+
+### 1. `POST /users`
+
+**Descripción:** Crea un nuevo user en el sistema.
+**Método:** POST
+- **URL:** `/users`
+- **Parámetros:** 
+```json
+{
+  "name": "Paula",
+  "email": "paula@herrera2000.com",
+  "password": "Ejemplo20!5@",
+  "localizacion": {
+    "lat": 40.7128,
+    "lng": -74.006
+  },
+  "edad": 24,
+  "preferencias": "Música relajante",
+  "lenguaje": "es"
+}
+
+```
+
+- **Respuesta Exitosa (201 Created):** 
+```json
+{
+  "success": "Usuario creado con éxito",
+  "data": {
+    "name": "Paula",
+    "email": "paula@herrera2000.com",
+    "localizacion": {
+      "lat": 40.7128,
+      "lng": -74.006
+    },
+    "edad": 24,
+    "preferencias": "Música relajante",
+    "lenguaje": "es",
+    "email_verified_at": "2025-02-24T13:10:06.000000Z",
+    "updated_at": "2025-02-24T13:10:06.000000Z",
+    "created_at": "2025-02-24T13:10:06.000000Z",
+    "id": 20
+  }
+}
+```
+
+### 1. `GET /users/{id}`
+
+**Descripción:** Encuentra el user según su id.
+**Método:** GET
+- **URL:** `/users/{id}`
+- **Parámetros:** id del user a buscar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": "Usuario encontrado",
+  "data": {
+    "id": 20,
+    "name": "Paula",
+    "email": "paula@herrera2000.com",
+    "email_verified_at": "2025-02-24T13:10:06.000000Z",
+    "localizacion": {
+      "lat": 40.7128,
+      "lng": -74.006
+    },
+    "edad": 24,
+    "preferencias": "Música relajante",
+    "lenguaje": "es",
+    "created_at": "2025-02-24T13:10:06.000000Z",
+    "updated_at": "2025-02-24T13:10:06.000000Z"
+  }
+}
+
+```
 
 
+### 1. `DELETE /users/{id}`
+
+**Descripción:** Elimina el user encontrado por su id.
+**Método:** DELETE
+- **URL:** `/users/{id}`
+- **Parámetros:** id user a eliminar
+- **Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": "Usuaro eliminado",
+  "data": {
+    "id": 20,
+    "name": "Paula",
+    "email": "paula@herrera2000.com",
+    "email_verified_at": "2025-02-24T13:10:06.000000Z",
+    "localizacion": {
+      "lat": 40.7128,
+      "lng": -74.006
+    },
+    "edad": 24,
+    "preferencias": "Música relajante",
+    "lenguaje": "es",
+    "created_at": "2025-02-24T13:10:06.000000Z",
+    "updated_at": "2025-02-24T13:10:06.000000Z"
+  }
+}
+```
+
+### 1. `PUT /users/{id}`
+
+**Descripción:** Actualiza el user encontrado por el id.
+
+ - **Método:** PUT
+- **URL:** `/users/{id}`
+- **Parámetros:** id del user a actualizar
+```json
+{
+  "name": "Paula",
+  "email": "paula@herrera3.com",
+  "password": "ContraActual20!5@",
+  "localizacion": {
+    "lat": 40.7128,
+    "lng": -74.006
+  },
+  "edad": 24,
+  "preferencias": "Música relajante",
+  "lenguaje": "es"
+}
+
+```
+
+- **Respuesta Exitosa (200 OK):**
+```json
+{
+  "success": "Usuario editado correctamente",
+  "data": {
+    "id": 19,
+    "name": "Paula",
+    "email": "paula@herrera3.com",
+    "email_verified_at": "2025-02-24T13:05:00.000000Z",
+    "localizacion": {
+      "lat": 40.7128,
+      "lng": -74.006
+    },
+    "edad": 24,
+    "preferencias": "Música relajante",
+    "lenguaje": "es",
+    "created_at": "2025-02-24T13:05:00.000000Z",
+    "updated_at": "2025-02-24T13:12:21.000000Z"
+  }
+}
+```
 
 *************************************ALERTAS*******************************************
 
@@ -1007,72 +1200,3 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 ```
 
-*************************************USERS*******************************************
-### 1. `GET /users`
-
-**Descripción:** Obtiene la lista de ususarios registrados en el sistema.
-
-- **Método:** GET
-- **URL:** `/users`
-- **Parámetros:** Ninguno.
-- **Respuesta Exitosa (200 OK):**
-```json
-
-```
-
-### 1. `POST /users`
-
-**Descripción:** Crea un nuevo user en el sistema.
-**Método:** POST
-- **URL:** `/users`
-- **Parámetros:** 
-```json
-
-```
-
-- **Respuesta Exitosa (201 Created):** 
-```json
-
-```
-
-### 1. `GET /users/{id}`
-
-**Descripción:** Encuentra el user según su id.
-**Método:** GET
-- **URL:** `/users/{id}`
-- **Parámetros:** id del user a buscar
-- **Respuesta Exitosa (200 OK):**
-
-```json
-
-
-```
-
-
-### 1. `DELETE /users/{id}`
-
-**Descripción:** Elimina el user encontrado por su id.
-**Método:** DELETE
-- **URL:** `/users/{id}`
-- **Parámetros:** id user a eliminar
-- **Respuesta Exitosa (200 OK):**
-
-```json
-
-```
-
-### 1. `PUT /users/{id}`
-
-**Descripción:** Actualiza el user encontrado por el id.
-
- - **Método:** PUT
-- **URL:** `/users/{id}`
-- **Parámetros:** id del user a actualizar
-```json
-
-```
-
-- **Respuesta Exitosa (200 OK):**
-```json
-
-```
