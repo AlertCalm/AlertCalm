@@ -559,19 +559,36 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
   "data": [
     {
       "id": 1,
-      "user_id": 1,
-      "tipo_fav": "meditation",
-      "item_id": 4,
-      "created_at": "2025-02-15T16:32:02.000000Z",
-      "updated_at": "2025-02-15T16:32:02.000000Z"
-    },
-    {
-      "id": 2,
-      "user_id": 1,
+      "user_id": 6,
       "tipo_fav": "music",
-      "item_id": 6,
-      "created_at": "2025-02-15T16:32:02.000000Z",
-      "updated_at": "2025-02-15T16:32:02.000000Z"
+      "item_id": 7,
+      "created_at": "2025-02-25T11:50:38.000000Z",
+      "updated_at": "2025-02-25T11:50:38.000000Z",
+      "user": {
+        "id": 6,
+        "name": "Eileen Marks",
+        "email": "bins.daniela@example.org",
+        "email_verified_at": "2025-02-24T20:14:53.000000Z",
+        "localizacion": {
+          "lat": 7.515238,
+          "lng": -1.252312
+        },
+        "edad": 35,
+        "preferencias": "Ratione temporibus expedita occaecati ratione. Fugit et vel sed repudiandae expedita. Sint velit porro ea iusto illo ratione. Autem laudantium quaerat placeat eligendi sed occaecati dignissimos.",
+        "lenguaje": "es",
+        "created_at": "2025-02-24T20:14:53.000000Z",
+        "updated_at": "2025-02-24T20:14:53.000000Z"
+      },
+      "musica": {
+        "id": 7,
+        "titulo": "A voluptas perspiciatis officiis.",
+        "categoria": "meditacion",
+        "file_url": "https://www.connelly.net/est-aspernatur-quia-ipsa-nihil-ex-necessitatibus-quia",
+        "duracion": "06:48:12",
+        "lenguaje": "fr",
+        "created_at": "2025-02-24T20:14:55.000000Z",
+        "updated_at": "2025-02-24T20:14:55.000000Z"
+      }
     }
   ]
 }
@@ -584,12 +601,48 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **URL:** `/favoritos`
 - **Parámetros:** 
 ```json
-
+{
+   "user_id": "6",
+    "tipo_fav": "music",
+    "item_id": "7"
+}
 ```
 
 - **Respuesta Exitosa (201 Created):** 
 ```json
-
+{
+  "success": "Favorito creado con éxito",
+  "data": {
+    "user_id": "6",
+    "tipo_fav": "music",
+    "item_id": "7",
+    "user": {
+      "id": 6,
+      "name": "Eileen Marks",
+      "email": "bins.daniela@example.org",
+      "email_verified_at": "2025-02-24T20:14:53.000000Z",
+      "localizacion": {
+        "lat": 7.515238,
+        "lng": -1.252312
+      },
+      "edad": 35,
+      "preferencias": "Ratione temporibus expedita occaecati ratione. Fugit et vel sed repudiandae expedita. Sint velit porro ea iusto illo ratione. Autem laudantium quaerat placeat eligendi sed occaecati dignissimos.",
+      "lenguaje": "es",
+      "created_at": "2025-02-24T20:14:53.000000Z",
+      "updated_at": "2025-02-24T20:14:53.000000Z"
+    },
+    "item": {
+      "id": 7,
+      "titulo": "A voluptas perspiciatis officiis.",
+      "categoria": "meditacion",
+      "file_url": "https://www.connelly.net/est-aspernatur-quia-ipsa-nihil-ex-necessitatibus-quia",
+      "duracion": "06:48:12",
+      "lenguaje": "fr",
+      "created_at": "2025-02-24T20:14:55.000000Z",
+      "updated_at": "2025-02-24T20:14:55.000000Z"
+    }
+  }
+}
 ```
 
 ### 1. `GET /favoritos/{id}`
@@ -602,47 +655,40 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 ```json
 {
-  "success": "Favoritos encontrados",
-  "data": [
-    {
-      "id": 1,
-      "user_id": 1,
-      "tipo_fav": "meditation",
-      "item_id": 4,
-      "created_at": "2025-02-15T16:32:02.000000Z",
-      "updated_at": "2025-02-15T16:32:02.000000Z",
-      "user": {
-        "id": 1,
-        "username": "lang.ruth",
-        "email": "bosco.leanne@example.net",
-        "localizacion": "Parisianview",
-        "edad": 33,
-        "preferencias": "Quas earum maxime ad ad ipsa. Velit quia et eveniet aut quia ut. Magni iure maiores reiciendis facere ipsam labore. Porro accusamus sed veritatis rerum eveniet eius consectetur.",
-        "lenguaje": "es",
-        "created_at": "2025-02-15T16:26:32.000000Z",
-        "updated_at": "2025-02-15T16:26:32.000000Z"
-      }
+  "success": "Favorito encontrado",
+  "data": {
+    "id": 20,
+    "user_id": 4,
+    "item_id": 6,
+    "tipo_fav": "meditation",
+    "created_at": "2025-02-24T20:14:55.000000Z",
+    "updated_at": "2025-02-24T20:14:55.000000Z",
+    "user": {
+      "id": 4,
+      "name": "Thaddeus Kessler",
+      "email": "xjacobson@example.com",
+      "email_verified_at": "2025-02-24T20:14:52.000000Z",
+      "localizacion": {
+        "lat": 50.195192,
+        "lng": -175.77324
+      },
+      "edad": 51,
+      "preferencias": "Accusamus hic et at non. Cumque dolorem doloribus autem. Nam aspernatur voluptatem et et id.",
+      "lenguaje": "es",
+      "created_at": "2025-02-24T20:14:52.000000Z",
+      "updated_at": "2025-02-24T20:14:52.000000Z"
     },
-    {
-      "id": 2,
-      "user_id": 1,
-      "tipo_fav": "music",
-      "item_id": 6,
-      "created_at": "2025-02-15T16:32:02.000000Z",
-      "updated_at": "2025-02-15T16:32:02.000000Z",
-      "user": {
-        "id": 1,
-        "username": "lang.ruth",
-        "email": "bosco.leanne@example.net",
-        "localizacion": "Parisianview",
-        "edad": 33,
-        "preferencias": "Quas earum maxime ad ad ipsa. Velit quia et eveniet aut quia ut. Magni iure maiores reiciendis facere ipsam labore. Porro accusamus sed veritatis rerum eveniet eius consectetur.",
-        "lenguaje": "es",
-        "created_at": "2025-02-15T16:26:32.000000Z",
-        "updated_at": "2025-02-15T16:26:32.000000Z"
-      }
+    "meditacion": {
+      "id": 6,
+      "titulo": "Exercitationem nobis blanditiis blanditiis qui.",
+      "categoria": "dormir",
+      "file_url": "http://www.boyle.org/temporibus-voluptatem-in-fugit-sed.html",
+      "duracion": "21:08:49",
+      "lenguaje": "es",
+      "created_at": "2025-02-24T20:14:55.000000Z",
+      "updated_at": "2025-02-24T20:14:55.000000Z"
     }
-  ]
+  }
 }
 ```
 
@@ -656,7 +702,32 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **Respuesta Exitosa (200 OK):**
 
 ```json
-
+{
+  "success": "Favorito eliminado.",
+  "data": {
+    "id": 10,
+    "user_id": 2,
+    "tipo_fav": "music",
+    "item_id": 5,
+    "created_at": "2025-02-24T20:14:55.000000Z",
+    "updated_at": "2025-02-24T20:14:55.000000Z",
+    "user": {
+      "id": 2,
+      "name": "Dr. Alexanne Bogisich Sr.",
+      "email": "konopelski.tyree@example.net",
+      "email_verified_at": "2025-02-24T20:14:52.000000Z",
+      "localizacion": {
+        "lat": -33.122009,
+        "lng": 67.004862
+      },
+      "edad": 41,
+      "preferencias": "Qui vel assumenda aut quia. Error quo impedit cum neque consequuntur sunt ut. Aut omnis qui mollitia aliquid et.",
+      "lenguaje": "es",
+      "created_at": "2025-02-24T20:14:52.000000Z",
+      "updated_at": "2025-02-24T20:14:52.000000Z"
+    }
+  }
+}
 ```
 
 ### 1. `PUT /favoritos/{id}`
@@ -1479,11 +1550,11 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 ```
 
-### 1. `POST /meditaciones`
+### 1. `POST /sesiones`
 
 **Descripción:** Crea una nueva sesión en el sistema.
 **Método:** POST
-- **URL:** `/meditaciones`
+- **URL:** `/sesiones`
 - **Parámetros:** 
 ```json
 
@@ -1499,7 +1570,7 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 
 **Descripción:** Encuentra la sesión según su id.
 **Método:** GET
-- **URL:** `/meditaciones/{id}`
+- **URL:** `/sesiones/{id}`
 - **Parámetros:** id de la sesión a buscar
 - **Respuesta Exitosa (200 OK):**
 

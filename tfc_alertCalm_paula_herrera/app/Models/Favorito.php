@@ -25,12 +25,19 @@ class Favorito extends Model
     // Relación con Musica (si es un favorito de meditation)
     public function meditacion()
     {
-        return $this->belongsTo(Meditation::class, 'item_id')->where('tipo_fav', 'meditation');
+        return $this->belongsTo(Meditation::class, 'item_id')
+                    ->whereHas('favoritos', function ($query) {
+                        $query->where('tipo_fav', 'meditation');
+                    });
     }
- 
+   
     // Relación con Musica (si es un favorito de música)
+     
     public function musica()
     {
-        return $this->belongsTo(Music::class, 'item_id')->where('tipo_fav', 'music');
+        return $this->belongsTo(Music::class, 'item_id')
+                    ->whereHas('favoritos', function ($query) {
+                        $query->where('tipo_fav', 'music');
+                    });
     }
 }
