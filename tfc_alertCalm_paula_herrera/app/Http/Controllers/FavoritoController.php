@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class FavoritoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Función que muestra todas los favoritos de la base de datos.
      */
     public function index()
     {
@@ -47,7 +47,7 @@ class FavoritoController extends Controller
     
 
     /**
-     * Show the form for creating a new resource.
+     * 
      */
     public function create()
     {
@@ -55,7 +55,8 @@ class FavoritoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Función que crea un favorito y valida que todos sus campos esten rellenos.
+     * Devuelve un json con la información del favorito creado.
      */
     public function store(Request $request)
     {
@@ -121,7 +122,8 @@ class FavoritoController extends Controller
     
 
     /**
-     * Display the specified resource.
+     * Función que muestra el favorito buscado por su id.
+     * Devuelve un json con la información del favorito.
      */
     public function show(string $id)
     {
@@ -138,18 +140,16 @@ class FavoritoController extends Controller
             $favorito->user->localizacion = json_decode($favorito->user->localizacion);
         }
     
-        // Preparar la respuesta con solo los datos necesarios
         $favoritoData = [
             'id' => $favorito->id,
             'user_id' => $favorito->user_id,
             'item_id' => $favorito->item_id,
-            'tipo_fav' => $favorito->tipo_fav, // Incluir el tipo de favorito
+            'tipo_fav' => $favorito->tipo_fav, 
             'created_at' => $favorito->created_at,
             'updated_at' => $favorito->updated_at,
             'user' => $favorito->user,
         ];
     
-        // Incluir el item correspondiente según el tipo de favorito
         if ($favorito->tipo_fav === 'meditation') {
             $favoritoData['meditacion'] = $favorito->meditacion;
         } elseif ($favorito->tipo_fav === 'music') {
@@ -179,38 +179,61 @@ class FavoritoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Función que actualiza un favorito pasandole la respuesta y el id por parámetros.
+     * Devuelve un json con la información actualizada.
      */
     public function update(Request $request, string $id)
     {
-        $favorito=Favorito::find($id);
-        if($favorito){
-            $validardatos=$request->validate([
+        $favorito = Favorito::with(['user', 'meditacion', 'musica'])->find($id);
+        
+        if ($favorito) {
+            $validardatos = $request->validate([
                 'user_id'   => 'required|int|exists:users,id',
                 'tipo_fav'  => 'required|in:music,meditation',
                 'item_id'   => 'required|int'
             ]);
     
-            $favorito->user_id=$validardatos['user_id'];
-            $favorito->tipo_fav=$validardatos['tipo_fav'];
-            $favorito->item_id=$validardatos['item_id'];
+            $favorito->user_id = $validardatos['user_id'];
+            $favorito->tipo_fav = $validardatos['tipo_fav'];
+            $favorito->item_id = $validardatos['item_id'];
     
             $favorito->save();
+    
+        // Decodificar la localización si es una cadena JSON
+        if (isset($favorito->user->localizacion) && is_string($favorito->user->localizacion)) {
+            $favorito->user->localizacion = json_decode($favorito->user->localizacion);
+        }
+            $favoritoData = [
+                'id' => $favorito->id,
+                'user_id' => $favorito->user_id,
+                'item_id' => $favorito->item_id,
+                'tipo_fav' => $favorito->tipo_fav, 
+                'created_at' => $favorito->created_at,
+                'updated_at' => $favorito->updated_at,
+                'user' => $favorito->user,
+            ];
+    
+            if ($favorito->tipo_fav === 'meditation') {
+                $favoritoData['meditacion'] = $favorito->meditacion;
+            } elseif ($favorito->tipo_fav === 'music') {
+                $favoritoData['musica'] = $favorito->musica;
+            }
+    
             return response()->json([
-                'success'=>'Favorito encontrado',
-                'data'=>$favorito
+                'success' => 'Favorito actualizado',
+                'data' => $favoritoData
             ], 200);
-        }else{
-            $favoritos=Favorito::all();
+        } else {
             return response()->json([
-                'error'=>'No se ha encontardo el favorito para poder editarla.',
-                'Lista favoritos'=>$favoritos
-            ]);
+                'error' => 'No se ha encontrado el favorito para poder editarlo.'
+            ], 404);
         }
     }
+    
 
     /**
-     * Remove the specified resource from storage.
+     * Función que elimina un favorito pasandole el id por parámetros.
+     * Devuelve un json con el favorito eliminado.
      */
     public function destroy(string $id)
 {

@@ -738,12 +738,51 @@ La base URL para todas las peticiones es: http://127.0.0.1:8000/api/
 - **URL:** `/favoritos/{id}`
 - **Parámetros:** id del favorito a actualizar
 ```json
-
+{
+  "user_id": "5",
+  "tipo_fav": "meditation",
+  "item_id": "7"
+}
 ```
 
 - **Respuesta Exitosa (200 OK):**
 ```json
-
+{
+  "success": "Favorito actualizado",
+  "data": {
+    "id": 1,
+    "user_id": "5",
+    "item_id": "7",
+    "tipo_fav": "meditation",
+    "created_at": "2025-02-24T20:14:55.000000Z",
+    "updated_at": "2025-02-25T12:20:25.000000Z",
+    "user": {
+      "id": 5,
+      "name": "Dwight Sanford",
+      "email": "marks.lisette@example.net",
+      "email_verified_at": "2025-02-24T20:14:52.000000Z",
+      "localizacion": {
+        "lat": -75.535614,
+        "lng": -144.379795
+      },
+      "edad": 38,
+      "preferencias": "Et quam qui aut totam ut assumenda dolorem. Dolorem necessitatibus eaque recusandae ut dolor ut magnam.",
+      "lenguaje": "es",
+      "created_at": "2025-02-24T20:14:53.000000Z",
+      "updated_at": "2025-02-24T20:14:53.000000Z"
+    },
+    "meditacion": {
+      "id": 7,
+      "titulo": "Fuga dolores et doloremque.",
+      "categoria": "respiracion",
+      "file_url": "http://smith.com/",
+      "duracion": "19:14:03",
+      "lenguaje": "en",
+      "created_at": "2025-02-24T20:14:55.000000Z",
+      "updated_at": "2025-02-24T20:14:55.000000Z"
+    }
+  }
+}
 ```
 
 *************************************MEDITATIONS*******************************************
